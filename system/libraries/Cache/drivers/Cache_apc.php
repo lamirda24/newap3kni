@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 2.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter APC Caching Class
  *
@@ -46,8 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link
  */
-class CI_Cache_apc extends CI_Driver {
-
+class CI_Cache_apc extends CI_Driver
+{
 	/**
 	 * Class constructor
 	 *
@@ -58,14 +58,11 @@ class CI_Cache_apc extends CI_Driver {
 	 */
 	public function __construct()
 	{
-		if ( ! $this->is_supported())
-		{
+		if (!$this->is_supported()) {
 			log_message('error', 'Cache: Failed to initialize APC; extension not loaded/enabled?');
 		}
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get
 	 *
@@ -79,12 +76,9 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		$success = FALSE;
 		$data = apc_fetch($id, $success);
-
 		return ($success === TRUE) ? $data : FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Save
 	 *
@@ -98,9 +92,7 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_store($id, $data, (int) $ttl);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Delete from Cache
 	 *
@@ -111,9 +103,7 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_delete($id);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Increment a raw value
 	 *
@@ -125,9 +115,7 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_inc($id, $offset);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Decrement a raw value
 	 *
@@ -139,9 +127,7 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_dec($id, $offset);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Clean the cache
 	 *
@@ -151,22 +137,18 @@ class CI_Cache_apc extends CI_Driver {
 	{
 		return apc_clear_cache('user');
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Info
 	 *
 	 * @param	string	user/filehits
 	 * @return	mixed	array on success, false on failure
 	 */
-	 public function cache_info($type = NULL)
-	 {
-		 return apc_cache_info($type);
-	 }
-
+	public function cache_info($type = NULL)
+	{
+		return apc_cache_info($type);
+	}
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get Cache Metadata
 	 *
@@ -176,33 +158,24 @@ class CI_Cache_apc extends CI_Driver {
 	public function get_metadata($id)
 	{
 		$cache_info = apc_cache_info('user', FALSE);
-		if (empty($cache_info) OR empty($cache_info['cache_list']))
-		{
+		if (empty($cache_info) or empty($cache_info['cache_list'])) {
 			return FALSE;
 		}
-
-		foreach ($cache_info['cache_list'] as &$entry)
-		{
-			if ($entry['info'] !== $id)
-			{
+		foreach ($cache_info['cache_list'] as &$entry) {
+			if ($entry['info'] !== $id) {
 				continue;
 			}
-
 			$success  = FALSE;
 			$metadata = array(
 				'expire' => ($entry['ttl'] ? $entry['mtime'] + $entry['ttl'] : 0),
 				'mtime'  => $entry['ttl'],
 				'data'   => apc_fetch($id, $success)
 			);
-
 			return ($success === TRUE) ? $metadata : FALSE;
 		}
-
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * is_supported()
 	 *

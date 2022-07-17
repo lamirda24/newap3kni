@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.3.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * MySQLi Result Class
  *
@@ -48,8 +48,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_mysqli_result extends CI_DB_result {
-
+class CI_DB_mysqli_result extends CI_DB_result
+{
 	/**
 	 * Number of rows in the result set
 	 *
@@ -61,9 +61,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 			? $this->num_rows
 			: $this->num_rows = $this->result_id->num_rows;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -73,9 +71,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return $this->result_id->field_count;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -87,16 +83,12 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		$field_names = array();
 		$this->result_id->field_seek(0);
-		while ($field = $this->result_id->fetch_field())
-		{
+		while ($field = $this->result_id->fetch_field()) {
 			$field_names[] = $field->name;
 		}
-
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -108,8 +100,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		$retval = array();
 		$field_data = $this->result_id->fetch_fields();
-		for ($i = 0, $c = count($field_data); $i < $c; $i++)
-		{
+		for ($i = 0, $c = count($field_data); $i < $c; $i++) {
 			$retval[$i]			= new stdClass();
 			$retval[$i]->name		= $field_data[$i]->name;
 			$retval[$i]->type		= static::_get_field_type($field_data[$i]->type);
@@ -117,12 +108,9 @@ class CI_DB_mysqli_result extends CI_DB_result {
 			$retval[$i]->primary_key	= (int) ($field_data[$i]->flags & MYSQLI_PRI_KEY_FLAG);
 			$retval[$i]->default		= $field_data[$i]->def;
 		}
-
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Get field type
 	 *
@@ -136,7 +124,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	private static function _get_field_type($type)
 	{
 		static $map;
-		isset($map) OR $map = array(
+		isset($map) or $map = array(
 			MYSQLI_TYPE_DECIMAL     => 'decimal',
 			MYSQLI_TYPE_BIT         => 'bit',
 			MYSQLI_TYPE_TINY        => 'tinyint',
@@ -163,12 +151,9 @@ class CI_DB_mysqli_result extends CI_DB_result {
 			MYSQLI_TYPE_VAR_STRING  => 'varchar',
 			MYSQLI_TYPE_GEOMETRY    => 'geometry'
 		);
-
 		return isset($map[$type]) ? $map[$type] : $type;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Free the result
 	 *
@@ -176,15 +161,12 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	 */
 	public function free_result()
 	{
-		if (is_object($this->result_id))
-		{
+		if (is_object($this->result_id)) {
 			$this->result_id->free();
 			$this->result_id = FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Data Seek
 	 *
@@ -199,9 +181,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return $this->result_id->data_seek($n);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -213,9 +193,7 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return $this->result_id->fetch_assoc();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -228,5 +206,4 @@ class CI_DB_mysqli_result extends CI_DB_result {
 	{
 		return $this->result_id->fetch_object($class_name);
 	}
-
 }

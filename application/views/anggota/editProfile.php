@@ -1,6 +1,5 @@
 <!-- Main content -->
 <div class="content-wrapper">
-
     <!-- Page header -->
     <div class="page-header">
         <div class="page-header-content">
@@ -8,7 +7,6 @@
                 <h4><i class="icon-primitive-square position-left"></i> <span class="text-semibold">Ubah Profile</span> - <?= $nama ?></h4>
             </div>
         </div>
-
         <div class="breadcrumb-line">
             <ul class="breadcrumb">
                 <li><a href="index.html"><i class="icon-primitive-square position-left"></i>Home</a></li>
@@ -23,9 +21,7 @@
         <div class="panel panel-flat col-md-9">
             <div class="panel-heading">
                 <h6 class="panel-title">Ubah Data Diri</h6>
-
             </div>
-
             <div class="panel-body">
                 <?= form_open_multipart('anggota/editProfile'); ?>
                 <div class="form-group has-feedback">
@@ -52,13 +48,9 @@
                         <?php endif; ?>
                         <option value="Anggota">Anggota</option>
                         <option value="Pengurus">Pengurus</option>
-
                     </select>
                     <?= form_error('jabatan', '<small class="text-danger pl-3">', '</small>'); ?>
-
-
                 </div>
-
                 <div class="form-group has-feedback">
                     <label>Wilayah</label>
                     <select name="wilayah" class="form-control select">
@@ -67,9 +59,7 @@
                             <option value="<?= $w->id ?>" <?= $anggota['id'] === $w->id ? 'selected' : '' ?>> <?= $w->nama_wilayah ?></option>
                         <?php endforeach; ?>
                         <?= form_error('wilayah', '<small class="text-danger pl-3">', '</small>'); ?>
-
                     </select>
-
                 </div>
                 <div class="form-group has-feedback">
                     <label>Nomor Telepon</label>
@@ -102,7 +92,6 @@
                         <i class="icon-file-picture  text-muted"></i>
                     </div>
                 </div>
-
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary">Edit Profile <i class="icon-arrow-right14"></i></button>
                 </div>
@@ -117,10 +106,8 @@
                     <div class="caption caption-overflow">
                         <span>
                             <a href="#" data-target="#profile" data-toggle="modal" class="btn bg-success-400 btn-icon btn-xs" data-popup="lightbox"><i class="icon-zoomin3"></i></a>
-
                     </div>
                 </div>
-
                 <div class="caption text-center">
                     <h6 class="text-semibold no-margin"><?= $anggota['nama_user'] ?><small class="display-block"><?= $anggota['jabatan_anggota'] ?></small></h6>
                     <ul class="icons-list mt-15">
@@ -128,22 +115,16 @@
                 </div>
             </div>
             <!-- /user thumbnail -->
-
-
-
             <!-- Navigation -->
             <div class="panel">
                 <div class="panel-heading">
                     <h6 class="panel-title">Navigation</h6>
                 </div>
-
                 <div class="list-group list-group-borderless no-padding-top">
                     <a href="<?= base_url('anggota/profile') ?>" class="list-group-item"><i class="icon-user"></i>Lihat Profile</a>
                     <a href="#" data-toggle="modal" data-target="#kartu" class="list-group-item"><i class="icon-vcard"></i>Kartu Anggota</a>
-
                 </div>
             </div>
             <!-- /navigation -->
-
         </div>
     </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Wincache Caching Class
  *
@@ -49,8 +49,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		Mike Murkovic
  * @link
  */
-class CI_Cache_wincache extends CI_Driver {
-
+class CI_Cache_wincache extends CI_Driver
+{
 	/**
 	 * Class constructor
 	 *
@@ -61,14 +61,11 @@ class CI_Cache_wincache extends CI_Driver {
 	 */
 	public function __construct()
 	{
-		if ( ! $this->is_supported())
-		{
+		if (!$this->is_supported()) {
 			log_message('error', 'Cache: Failed to initialize Wincache; extension not loaded/enabled?');
 		}
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get
 	 *
@@ -82,13 +79,10 @@ class CI_Cache_wincache extends CI_Driver {
 	{
 		$success = FALSE;
 		$data = wincache_ucache_get($id, $success);
-
 		// Success returned by reference from wincache_ucache_get()
 		return ($success) ? $data : FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Save
 	 *
@@ -102,9 +96,7 @@ class CI_Cache_wincache extends CI_Driver {
 	{
 		return wincache_ucache_set($id, $data, $ttl);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Delete from Cache
 	 *
@@ -115,9 +107,7 @@ class CI_Cache_wincache extends CI_Driver {
 	{
 		return wincache_ucache_delete($id);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Increment a raw value
 	 *
@@ -129,12 +119,9 @@ class CI_Cache_wincache extends CI_Driver {
 	{
 		$success = FALSE;
 		$value = wincache_ucache_inc($id, $offset, $success);
-
 		return ($success === TRUE) ? $value : FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Decrement a raw value
 	 *
@@ -146,12 +133,9 @@ class CI_Cache_wincache extends CI_Driver {
 	{
 		$success = FALSE;
 		$value = wincache_ucache_dec($id, $offset, $success);
-
 		return ($success === TRUE) ? $value : FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Clean the cache
 	 *
@@ -161,21 +145,17 @@ class CI_Cache_wincache extends CI_Driver {
 	{
 		return wincache_ucache_clear();
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Info
 	 *
 	 * @return	mixed	array on success, false on failure
 	 */
-	 public function cache_info()
-	 {
-		 return wincache_ucache_info(TRUE);
-	 }
-
+	public function cache_info()
+	{
+		return wincache_ucache_info(TRUE);
+	}
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get Cache Metadata
 	 *
@@ -184,12 +164,10 @@ class CI_Cache_wincache extends CI_Driver {
 	 */
 	public function get_metadata($id)
 	{
-		if ($stored = wincache_ucache_info(FALSE, $id))
-		{
+		if ($stored = wincache_ucache_info(FALSE, $id)) {
 			$age = $stored['ucache_entries'][1]['age_seconds'];
 			$ttl = $stored['ucache_entries'][1]['ttl_seconds'];
 			$hitcount = $stored['ucache_entries'][1]['hitcount'];
-
 			return array(
 				'expire'	=> $ttl - $age,
 				'hitcount'	=> $hitcount,
@@ -197,12 +175,9 @@ class CI_Cache_wincache extends CI_Driver {
 				'ttl'		=> $ttl
 			);
 		}
-
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * is_supported()
 	 *

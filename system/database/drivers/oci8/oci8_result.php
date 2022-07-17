@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.4.1
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * oci8 Result Class
  *
@@ -46,38 +46,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_oci8_result extends CI_DB_result {
-
+class CI_DB_oci8_result extends CI_DB_result
+{
 	/**
 	 * Statement ID
 	 *
 	 * @var	resource
 	 */
 	public $stmt_id;
-
 	/**
 	 * Cursor ID
 	 *
 	 * @var	resource
 	 */
 	public $curs_id;
-
 	/**
 	 * Limit used flag
 	 *
 	 * @var	bool
 	 */
 	public $limit_used;
-
 	/**
 	 * Commit mode flag
 	 *
 	 * @var	int
 	 */
 	public $commit_mode;
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Class constructor
 	 *
@@ -87,16 +82,13 @@ class CI_DB_oci8_result extends CI_DB_result {
 	public function __construct(&$driver_object)
 	{
 		parent::__construct($driver_object);
-
 		$this->stmt_id = $driver_object->stmt_id;
 		$this->curs_id = $driver_object->curs_id;
 		$this->limit_used = $driver_object->limit_used;
-		$this->commit_mode =& $driver_object->commit_mode;
+		$this->commit_mode = &$driver_object->commit_mode;
 		$driver_object->stmt_id = FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -105,13 +97,10 @@ class CI_DB_oci8_result extends CI_DB_result {
 	public function num_fields()
 	{
 		$count = oci_num_fields($this->stmt_id);
-
 		// if we used a limit we subtract it
 		return ($this->limit_used) ? $count - 1 : $count;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -122,15 +111,12 @@ class CI_DB_oci8_result extends CI_DB_result {
 	public function list_fields()
 	{
 		$field_names = array();
-		for ($c = 1, $fieldCount = $this->num_fields(); $c <= $fieldCount; $c++)
-		{
+		for ($c = 1, $fieldCount = $this->num_fields(); $c <= $fieldCount; $c++) {
 			$field_names[] = oci_field_name($this->stmt_id, $c);
 		}
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -141,21 +127,16 @@ class CI_DB_oci8_result extends CI_DB_result {
 	public function field_data()
 	{
 		$retval = array();
-		for ($c = 1, $fieldCount = $this->num_fields(); $c <= $fieldCount; $c++)
-		{
+		for ($c = 1, $fieldCount = $this->num_fields(); $c <= $fieldCount; $c++) {
 			$F		= new stdClass();
 			$F->name	= oci_field_name($this->stmt_id, $c);
 			$F->type	= oci_field_type($this->stmt_id, $c);
 			$F->max_length	= oci_field_size($this->stmt_id, $c);
-
 			$retval[] = $F;
 		}
-
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Free the result
 	 *
@@ -163,26 +144,19 @@ class CI_DB_oci8_result extends CI_DB_result {
 	 */
 	public function free_result()
 	{
-		if (is_resource($this->result_id))
-		{
+		if (is_resource($this->result_id)) {
 			oci_free_statement($this->result_id);
 			$this->result_id = FALSE;
 		}
-
-		if (is_resource($this->stmt_id))
-		{
+		if (is_resource($this->stmt_id)) {
 			oci_free_statement($this->stmt_id);
 		}
-
-		if (is_resource($this->curs_id))
-		{
+		if (is_resource($this->curs_id)) {
 			oci_cancel($this->curs_id);
 			$this->curs_id = NULL;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -195,9 +169,7 @@ class CI_DB_oci8_result extends CI_DB_result {
 		$id = ($this->curs_id) ? $this->curs_id : $this->stmt_id;
 		return oci_fetch_assoc($id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -211,19 +183,13 @@ class CI_DB_oci8_result extends CI_DB_result {
 		$row = ($this->curs_id)
 			? oci_fetch_object($this->curs_id)
 			: oci_fetch_object($this->stmt_id);
-
-		if ($class_name === 'stdClass' OR ! $row)
-		{
+		if ($class_name === 'stdClass' or !$row) {
 			return $row;
 		}
-
 		$class_name = new $class_name();
-		foreach ($row as $key => $value)
-		{
+		foreach ($row as $key => $value) {
 			$class_name->$key = $value;
 		}
-
 		return $class_name;
 	}
-
 }

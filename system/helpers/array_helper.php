@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Array Helpers
  *
@@ -46,11 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/helpers/array_helper.html
  */
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('element'))
-{
+if (!function_exists('element')) {
 	/**
 	 * Element
 	 *
@@ -67,11 +64,8 @@ if ( ! function_exists('element'))
 		return array_key_exists($item, $array) ? $array[$item] : $default;
 	}
 }
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('random_element'))
-{
+if (!function_exists('random_element')) {
 	/**
 	 * Random Element - Takes an array as input and returns a random element
 	 *
@@ -83,11 +77,8 @@ if ( ! function_exists('random_element'))
 		return is_array($array) ? $array[array_rand($array)] : $array;
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('elements'))
-{
+if (!function_exists('elements')) {
 	/**
 	 * Elements
 	 *
@@ -102,14 +93,10 @@ if ( ! function_exists('elements'))
 	function elements($items, array $array, $default = NULL)
 	{
 		$return = array();
-
-		is_array($items) OR $items = array($items);
-
-		foreach ($items as $item)
-		{
+		is_array($items) or $items = array($items);
+		foreach ($items as $item) {
 			$return[$item] = array_key_exists($item, $array) ? $array[$item] : $default;
 		}
-
 		return $return;
 	}
 }

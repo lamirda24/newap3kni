@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Security Helpers
  *
@@ -46,11 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/helpers/security_helper.html
  */
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('xss_clean'))
-{
+if (!function_exists('xss_clean')) {
 	/**
 	 * XSS Filtering
 	 *
@@ -63,11 +60,8 @@ if ( ! function_exists('xss_clean'))
 		return get_instance()->security->xss_clean($str, $is_image);
 	}
 }
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('sanitize_filename'))
-{
+if (!function_exists('sanitize_filename')) {
 	/**
 	 * Sanitize Filename
 	 *
@@ -79,11 +73,8 @@ if ( ! function_exists('sanitize_filename'))
 		return get_instance()->security->sanitize_filename($filename);
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('do_hash'))
-{
+if (!function_exists('do_hash')) {
 	/**
 	 * Hash encode a string
 	 *
@@ -95,19 +86,14 @@ if ( ! function_exists('do_hash'))
 	 */
 	function do_hash($str, $type = 'sha1')
 	{
-		if ( ! in_array(strtolower($type), hash_algos()))
-		{
+		if (!in_array(strtolower($type), hash_algos())) {
 			$type = 'md5';
 		}
-
 		return hash($type, $str);
 	}
 }
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('strip_image_tags'))
-{
+if (!function_exists('strip_image_tags')) {
 	/**
 	 * Strip Image Tags
 	 *
@@ -119,11 +105,8 @@ if ( ! function_exists('strip_image_tags'))
 		return get_instance()->security->strip_image_tags($str);
 	}
 }
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('encode_php_tags'))
-{
+if (!function_exists('encode_php_tags')) {
 	/**
 	 * Convert PHP tags to entities
 	 *

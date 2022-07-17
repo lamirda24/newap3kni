@@ -1,5 +1,4 @@
 <div class="page-header">
-
     <!-- Header content -->
     <div class="page-header-content">
         <div class="page-title">
@@ -52,7 +51,6 @@
         let id = $(this).data("id")
         let status = $(this).data('status');
         let nama = $(this).data('nama');
-
         swal({
                 title: "Anda yakin?",
                 text: "Anda akan mengubah status keanggotaan " + nama,
@@ -72,7 +70,6 @@
                                 document.location.href = "<?= base_url('admin/updateAnggota/') ?>" + id + "/" + status;
                             }, 2000);
                             swal("Status Keanggotaan berhasil diubah!", "", "success");
-
                         }
                     });
                 }

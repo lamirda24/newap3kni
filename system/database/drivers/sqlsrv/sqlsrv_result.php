@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 2.0.3
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * SQLSRV Result Class
  *
@@ -46,17 +46,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_sqlsrv_result extends CI_DB_result {
-
+class CI_DB_sqlsrv_result extends CI_DB_result
+{
 	/**
 	 * Scrollable flag
 	 *
 	 * @var	mixed
 	 */
 	public $scrollable;
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Constructor
 	 *
@@ -66,12 +64,9 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	public function __construct(&$driver_object)
 	{
 		parent::__construct($driver_object);
-
 		$this->scrollable = $driver_object->scrollable;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of rows in the result set
 	 *
@@ -80,18 +75,14 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	public function num_rows()
 	{
 		// sqlsrv_num_rows() doesn't work with the FORWARD and DYNAMIC cursors (FALSE is the same as FORWARD)
-		if ( ! in_array($this->scrollable, array(FALSE, SQLSRV_CURSOR_FORWARD, SQLSRV_CURSOR_DYNAMIC), TRUE))
-		{
+		if (!in_array($this->scrollable, array(FALSE, SQLSRV_CURSOR_FORWARD, SQLSRV_CURSOR_DYNAMIC), TRUE)) {
 			return parent::num_rows();
 		}
-
 		return is_int($this->num_rows)
 			? $this->num_rows
 			: $this->num_rows = sqlsrv_num_rows($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -101,9 +92,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		return @sqlsrv_num_fields($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -114,16 +103,12 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	public function list_fields()
 	{
 		$field_names = array();
-		foreach (sqlsrv_field_metadata($this->result_id) as $offset => $field)
-		{
+		foreach (sqlsrv_field_metadata($this->result_id) as $offset => $field) {
 			$field_names[] = $field['Name'];
 		}
-
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -134,19 +119,15 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	public function field_data()
 	{
 		$retval = array();
-		foreach (sqlsrv_field_metadata($this->result_id) as $i => $field)
-		{
+		foreach (sqlsrv_field_metadata($this->result_id) as $i => $field) {
 			$retval[$i]		= new stdClass();
 			$retval[$i]->name	= $field['Name'];
 			$retval[$i]->type	= $field['Type'];
 			$retval[$i]->max_length	= $field['Size'];
 		}
-
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Free the result
 	 *
@@ -154,15 +135,12 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	 */
 	public function free_result()
 	{
-		if (is_resource($this->result_id))
-		{
+		if (is_resource($this->result_id)) {
 			sqlsrv_free_stmt($this->result_id);
 			$this->result_id = FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -174,9 +152,7 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		return sqlsrv_fetch_array($this->result_id, SQLSRV_FETCH_ASSOC);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -189,5 +165,4 @@ class CI_DB_sqlsrv_result extends CI_DB_result {
 	{
 		return sqlsrv_fetch_object($this->result_id, $class_name);
 	}
-
 }

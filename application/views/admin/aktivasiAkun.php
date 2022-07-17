@@ -1,6 +1,5 @@
 <!-- Main content -->
 <div class="content-wrapper">
-
     <!-- Page header -->
     <div class="page-header">
         <div class="page-header-content">
@@ -8,26 +7,19 @@
                 <h4><i class="icon-primitive-square position-left"></i> <span class="text-semibold"><?= $breadcumb ?> - <?= $bread ?></h4>
             </div>
         </div>
-
         <div class="breadcrumb-line">
             <ul class="breadcrumb">
                 <li><a class="active" href="<?= base_url('admin/anggota'); ?>"><i class="icon-primitive-square position-left"></i><?= $breadcumb ?></a></li>
                 <li></span class="text-muted"> <?= $bread ?></span></li>
                 <!-- <li></span class="text-muted"><?= $wilayah['nama_wilayah'] ?></span></li> -->
-
             </ul>
         </div>
     </div>
-
     <!-- /page header -->
-
-
     <!-- Content area -->
     <div class="content col-lg-8">
         <?= $this->session->flashdata('message'); ?>
-
         <div class="panel panel-flat">
-
             <div class="panel-heading">
                 <h6 class="panel-title">Data Anggota</h6>
                 <div class="heading-elements">
@@ -38,7 +30,6 @@
                     </ul>
                 </div>
             </div>
-
             <div class="panel-body">
                 <table id="data" class="table datatable-basic">
                     <thead>
@@ -65,8 +56,6 @@
                                 <form method="post" action="<?= base_url('Auth/verify?email=' . $a->email_user . '&token=' . urlencode($a->token)) ?>">
                                     <td> <button class='btn btn-<?= $a->token ? "success" : "danger" ?> <?= $a->token ? "" : "disabled" ?>'>Aktifkan Akun</button></td>
                                 </form>
-
-
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

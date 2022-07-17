@@ -1,0 +1,45 @@
+.d-flex {
+	display: flex;
+	align-items: center;
+}
+.justify-content-between {
+	justify-content: space-between;
+}
+.tab {
+	display: none;
+}
+.active-in {
+	animation: slideIn 0.3s ease-out;
+}
+.active-out {
+	animation: slideOut 0.3s ease-in;
+}
+@keyframes slideIn {
+	0% {
+		transform: translateX(-100px);
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+@keyframes slideOut {
+	0% {
+		transform: translateX(100px);
+		opacity: 0;
+	}
+	50% {
+		opacity: 0;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}

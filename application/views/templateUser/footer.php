@@ -3,19 +3,14 @@
     &copy; <?= date('Y') ?>. Asosiasi Profesi Pendidikan Pancasila dan Kewarganegaraan Indonesia. Developed by <a href="https://www.linkedin.com/in/luthfiam/">Luthfi AM</a>. Informasi <a href="https://pdki-indonesia.dgip.go.id/detail/EC00202120664?type=copyright&keyword=asosiasi+profesi+pendidikan">Hak Cipta</a>
   </div>
   <!-- /footer -->
-
   </div>
   <!-- /content area -->
-
   </div>
   <!-- /main content -->
-
   </div>
   <!-- /page content -->
-
   </div>
   <!-- /page container -->
-
   <div id="logoutModal" class="modal fade">
     <div class="modal-dialog modal-centered">
       <div class="modal-content">
@@ -31,7 +26,6 @@
       </div>
     </div>
   </div>
-
   <div id="profile" class="modal fade">
     <div class="modal-dialog modal-centered">
       <div class="modal-content">
@@ -45,8 +39,6 @@
       </div>
     </div>
   </div>
-
-
   <div id="kartu" class="modal fade">
     <div class="modal-dialog modal-centered border border-danger">
       <div class="modal-content col-md-8 col-md-offset-3">
@@ -86,10 +78,8 @@
   <script type="text/javascript" src="<?= base_url('') ?>assets/js/plugins/forms/styling/uniform.min.js"></script>
   <script type="text/javascript" src="<?= base_url('') ?>assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
   <script type="text/javascript" src="<?= base_url('') ?>assets/js/plugins/pickers/daterangepicker.js"></script>
-
   <script type="text/javascript" src="<?= base_url('') ?>assets/js/core/app.js"></script>
   <script type="text/javascript" src="<?= base_url('') ?>assets/js/pages/form_inputs.js"></script>
-
   </body>
 
   </html>

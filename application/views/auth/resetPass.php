@@ -1,15 +1,11 @@
 <!-- Page container -->
 <div class="page-container login-container">
-
     <!-- Page content -->
     <div class="page-content">
-
         <!-- Main content -->
         <div class="content-wrapper">
-
             <!-- Content area -->
             <div class="content">
-
                 <!-- Advanced login -->
                 <form action="<?= base_url('Auth/resetPass') ?>" method="POST">
                     <div class="panel panel-body login-form">
@@ -52,15 +48,11 @@
                     &copy; 2015. <a href="#" class="text-white">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" class="text-white" target="_blank">Eugene Kopyov</a>
                 </div>
                 <!-- /footer -->
-
             </div>
             <!-- /content area -->
-
         </div>
         <!-- /main content -->
-
     </div>
     <!-- /page content -->
-
 </div>
 <!-- /page container -->

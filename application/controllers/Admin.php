@@ -1,104 +1,50 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
-
-
 class Admin extends CI_Controller
-
 {
-
-
-
-
-
     public function __construct()
-
     {
-
         parent::__construct();
-
         $this->load->library('form_validation');
-
         $this->load->library('encryption');
-
         $this->load->model('Model_admin');
-
         $data['stausA'] = "";
-
         is_login();
     }
-
-
-
     public function index()
     {
-
         $user = $this->session->userdata('id');
-
         $data['nama'] = $this->session->userdata('nama');
-
         $data['role'] = $this->session->userdata('role');
-
         $data['title'] = "AP3KNI | ADMIN";
-
         $data['breadcumb'] = "Dashboard";
-
         $data['jumlah'] = $this->Model_admin->getJumlahAnggota()->row();
-
         $data['aktif'] = $this->Model_admin->getJumlahAnggotaAktif()->row();
-
         $this->load->view('templateUser/header', $data);
-
         $this->load->view('templateUser/sidebar', $data);
-
         $this->load->view('admin/index', $data);
-
         $this->load->view('templateUser/footer', $data);
     }
-
-
-
     public function pembayaran()
-
     {
-
         $data['nama'] = $this->session->userdata('nama');
-
         $data['role'] = $this->session->userdata('role');
-
         $data['title'] = "AP3KNI | ADMIN";
-
         $data['breadcumb'] = "Dashboard";
-
         $data['bread'] = "Data Pembayaran";
-
         $data['pembayaran'] = $this->Model_admin->getDataPembayaran(0)->result();
-
         $data['riwayat'] = $this->Model_admin->getRiwayat()->result();
-
         $this->load->view('templateUser/header', $data);
-
         $this->load->view('templateUser/sidebar', $data);
-
         $this->load->view('admin/pembayaran', $data);
-
         $this->load->view('templateUser/footer', $data);
     }
-
     public function terima($id)
-
     {
-
         $idp = base64_decode($id);
-
         $this->_terima($idp);
     }
-
-
-
     private function _terima($idp)
-
     {
         $status = array('status_pembayaran' => 1);
         $dataAnggota = $this->Model_admin->getDataAnggota($idp)->row_array();
@@ -132,9 +78,7 @@ class Admin extends CI_Controller
         <span class="text-semibold">Anda telah berhasil menerima pembayaran!</div>');
         redirect('Admin/pembayaran');
     }
-
     public function tolak($id)
-
     {
         $idp = base64_decode($id);
         $status = array('status_pembayaran' => 2);
@@ -152,105 +96,51 @@ class Admin extends CI_Controller
         <span class="text-semibold">Anda telah Menolak Pembayaran!</div>');
         redirect('Admin/pembayaran');
     }
-
-
-
     private function _generateQr($idMember)
-
     {
-
-
-
         $this->load->library('ciqrcode');
-
         header("Content-Type: image/png");
-
         $config['imagedir'] = './assets/user/qrcode/';
-
         $config['quality'] = true;
-
         $config['size'] = '1024';
-
         $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
-
         $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
-
         $this->ciqrcode->initialize($config);
-
         $img_name = $idMember . '.png';
-
         $params['data'] = 'http://ap3kni.or.id/keanggotaan/Verif/verifikasi/' . $idMember;
-
         $params['level'] = 'H';
-
         $params['size'] = 10;
-
         $params['savename'] = FCPATH . $config['imagedir'] . $img_name;
-
         $this->ciqrcode->generate($params);
     }
-
-
-
     public function _notifikasiEmail($to, $subject, $message)
-
     {
-
         $this->load->library('email');
-
-
-
         $config['protocol']    = 'smtp';
-
         $config['smtp_host']    = 'mail.ap3kni.or.id';
-
         $config['smtp_port']    = '587';
-
         $config['smtp_timeout'] = '10';
-
         $config['smtp_user']    = 'info@ap3kni.or.id';
-
         $config['smtp_pass']    = 'Admin3kali';
-
         $config['charset']    = 'utf-8';
-
         $config['newline']    = "\r\n";
-
         $config['mailtype'] = 'html'; // or html
-
-
-
         $this->email->initialize($config);
-
         // Set to, from, message, etc
-
         $this->email->from('info@ap3kni.or.id', 'AP3KNI noreply');
-
         $this->email->to($to);
-
         $this->email->subject($subject);
-
         $this->email->message($message);
-
         $result = $this->email->send();
-
         echo $this->email->print_debugger();
     }
-
-
-
     public function anggota()
     {
         $data['nama'] = $this->session->userdata('nama');
-
         $data['role'] = $this->session->userdata('role');
-
         $data['title'] = "AP3KNI | ADMIN";
-
         $data['breadcumb'] = "Dashboard ";
-
         $data['bread'] = "Data Anggota";
-
         $data['anggota'] = $this->Model_admin->getKeanggotaan()->result();
         $this->load->view('templateUser/header', $data);
         $this->load->view('templateUser/sidebar', $data);
@@ -270,10 +160,8 @@ class Admin extends CI_Controller
         $this->load->view('admin/anggotaWilayah', $data);
         $this->load->view('templateUser/footer', $data);
     }
-
     public function updateAnggota($id, $status)
     {
-
         if ($status === "1") {
             $where = array('id_keanggotaan' => $id);
             $data = array(
@@ -287,75 +175,38 @@ class Admin extends CI_Controller
         }
         $this->Model_admin->updateKeanggotaan($data, $where);
         redirect('admin/anggota');
-
-
         //kalau statusnya 1
         //ubah status keanggotaan jadi 0
         //ubah masa berakhir sampai skr(belom pasti)
-
     }
-
-
-
     public function detailAnggota($id)
-
     {
-
         $this->load->model('Model_anggota');
-
         $data['nama'] = $this->session->userdata('nama');
-
         $data['role'] = $this->session->userdata('role');
-
         $id = base64_decode($id);
-
-
         $data['title'] = "AP3KNI | ADMIN";
-
         $data['breadcumb'] = "Data Anggota ";
-
         $data['bread'] = "";
-
         $data['anggota'] =  $this->Model_admin->getDetailAnggota($id)->row_array();
-
-
-
         $data['riwayat'] = $this->Model_anggota->getDataPembayaran($id)->result();
-
         $this->load->view('templateUser/header', $data);
-
         $this->load->view('templateUser/sidebar', $data);
-
         $this->load->view('admin/detailAnggota', $data);
-
         $this->load->view('templateUser/footer', $data);
     }
-
-
-
     public function dataAnggotaDaerah($id)
-
     {
-
         $data['nama'] = $this->session->userdata('nama');
-
         $data['role'] = $this->session->userdata('role');
-
         $data['title'] = "AP3KNI | ADMIN";
-
         $data['breadcumb'] = "Data Anggota ";
-
         $data['bread'] = "Wilayah";
-
         $data['anggota'] = $this->Model_admin->getAnggotaDaerah($id)->result();
         $data['wilayah'] = $this->Model_admin->getWilayah($id)->row_array();
-
         $this->load->view('templateUser/header', $data);
-
         $this->load->view('templateUser/sidebar', $data);
-
         $this->load->view('admin/detailWilayah', $data);
-
         $this->load->view('templateUser/footer', $data);
     }
     public function aktivasiAkun()
@@ -366,7 +217,6 @@ class Admin extends CI_Controller
         $data['breadcumb'] = "Data Anggota ";
         $data['bread'] = "Aktivasi Akun";
         $data['anggota'] = $this->Model_admin->getAkunNonAktif()->result();
-
         // $data['anggota'] = $this->Model_admin->getAnggotaDaerah($id)->result();
         // $data['wilayah'] = $this->Model_admin->getWilayah($id)->row_array();
         $this->load->view('templateUser/header', $data);
@@ -374,9 +224,6 @@ class Admin extends CI_Controller
         $this->load->view('admin/aktivasiAkun', $data);
         $this->load->view('templateUser/footer', $data);
     }
-
-
-
     public function createToken($email)
     {
         $token = base64_encode(random_bytes(32));

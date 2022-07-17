@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Javascript Class
  *
@@ -47,17 +47,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @link		https://codeigniter.com/user_guide/libraries/javascript.html
  * @deprecated	3.0.0	This was never a good idea in the first place.
  */
-class CI_Javascript {
-
+class CI_Javascript
+{
 	/**
 	 * JavaScript location
 	 *
 	 * @var	string
 	 */
 	protected $_javascript_location = 'js';
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Constructor
 	 *
@@ -67,31 +65,22 @@ class CI_Javascript {
 	public function __construct($params = array())
 	{
 		$defaults = array('js_library_driver' => 'jquery', 'autoload' => TRUE);
-
-		foreach ($defaults as $key => $val)
-		{
-			if (isset($params[$key]) && $params[$key] !== '')
-			{
+		foreach ($defaults as $key => $val) {
+			if (isset($params[$key]) && $params[$key] !== '') {
 				$defaults[$key] = $params[$key];
 			}
 		}
-
 		extract($defaults);
-
-		$this->CI =& get_instance();
-
+		$this->CI = &get_instance();
 		// load the requested js library
-		$this->CI->load->library('Javascript/'.$js_library_driver, array('autoload' => $autoload));
+		$this->CI->load->library('Javascript/' . $js_library_driver, array('autoload' => $autoload));
 		// make js to refer to current library
-		$this->js =& $this->CI->$js_library_driver;
-
-		log_message('info', 'Javascript Class Initialized and loaded. Driver used: '.$js_library_driver);
+		$this->js = &$this->CI->$js_library_driver;
+		log_message('info', 'Javascript Class Initialized and loaded. Driver used: ' . $js_library_driver);
 	}
-
 	// --------------------------------------------------------------------
 	// Event Code
 	// --------------------------------------------------------------------
-
 	/**
 	 * Blur
 	 *
@@ -105,9 +94,7 @@ class CI_Javascript {
 	{
 		return $this->js->_blur($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Change
 	 *
@@ -121,9 +108,7 @@ class CI_Javascript {
 	{
 		return $this->js->_change($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Click
 	 *
@@ -138,9 +123,7 @@ class CI_Javascript {
 	{
 		return $this->js->_click($element, $js, $ret_false);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Double Click
 	 *
@@ -154,9 +137,7 @@ class CI_Javascript {
 	{
 		return $this->js->_dblclick($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Error
 	 *
@@ -170,9 +151,7 @@ class CI_Javascript {
 	{
 		return $this->js->_error($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Focus
 	 *
@@ -186,9 +165,7 @@ class CI_Javascript {
 	{
 		return $this->js->_focus($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Hover
 	 *
@@ -203,9 +180,7 @@ class CI_Javascript {
 	{
 		return $this->js->_hover($element, $over, $out);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Keydown
 	 *
@@ -219,9 +194,7 @@ class CI_Javascript {
 	{
 		return $this->js->_keydown($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Keyup
 	 *
@@ -235,9 +208,7 @@ class CI_Javascript {
 	{
 		return $this->js->_keyup($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Load
 	 *
@@ -251,9 +222,7 @@ class CI_Javascript {
 	{
 		return $this->js->_load($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Mousedown
 	 *
@@ -267,9 +236,7 @@ class CI_Javascript {
 	{
 		return $this->js->_mousedown($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Mouse Out
 	 *
@@ -283,9 +250,7 @@ class CI_Javascript {
 	{
 		return $this->js->_mouseout($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Mouse Over
 	 *
@@ -299,9 +264,7 @@ class CI_Javascript {
 	{
 		return $this->js->_mouseover($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Mouseup
 	 *
@@ -315,9 +278,7 @@ class CI_Javascript {
 	{
 		return $this->js->_mouseup($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Output
 	 *
@@ -330,9 +291,7 @@ class CI_Javascript {
 	{
 		return $this->js->_output($js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Ready
 	 *
@@ -345,9 +304,7 @@ class CI_Javascript {
 	{
 		return $this->js->_document_ready($js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Resize
 	 *
@@ -361,9 +318,7 @@ class CI_Javascript {
 	{
 		return $this->js->_resize($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Scroll
 	 *
@@ -377,9 +332,7 @@ class CI_Javascript {
 	{
 		return $this->js->_scroll($element, $js);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Unload
 	 *
@@ -393,11 +346,9 @@ class CI_Javascript {
 	{
 		return $this->js->_unload($element, $js);
 	}
-
 	// --------------------------------------------------------------------
 	// Effects
 	// --------------------------------------------------------------------
-
 	/**
 	 * Add Class
 	 *
@@ -411,9 +362,7 @@ class CI_Javascript {
 	{
 		return $this->js->_addClass($element, $class);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Animate
 	 *
@@ -429,9 +378,7 @@ class CI_Javascript {
 	{
 		return $this->js->_animate($element, $params, $speed, $extra);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fade In
 	 *
@@ -446,9 +393,7 @@ class CI_Javascript {
 	{
 		return $this->js->_fadeIn($element, $speed, $callback);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fade Out
 	 *
@@ -464,7 +409,6 @@ class CI_Javascript {
 		return $this->js->_fadeOut($element, $speed, $callback);
 	}
 	// --------------------------------------------------------------------
-
 	/**
 	 * Slide Up
 	 *
@@ -478,11 +422,8 @@ class CI_Javascript {
 	public function slideUp($element = 'this', $speed = '', $callback = '')
 	{
 		return $this->js->_slideUp($element, $speed, $callback);
-
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Remove Class
 	 *
@@ -496,9 +437,7 @@ class CI_Javascript {
 	{
 		return $this->js->_removeClass($element, $class);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Slide Down
 	 *
@@ -513,9 +452,7 @@ class CI_Javascript {
 	{
 		return $this->js->_slideDown($element, $speed, $callback);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Slide Toggle
 	 *
@@ -529,11 +466,8 @@ class CI_Javascript {
 	public function slideToggle($element = 'this', $speed = '', $callback = '')
 	{
 		return $this->js->_slideToggle($element, $speed, $callback);
-
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Hide
 	 *
@@ -548,9 +482,7 @@ class CI_Javascript {
 	{
 		return $this->js->_hide($element, $speed, $callback);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Toggle
 	 *
@@ -562,11 +494,8 @@ class CI_Javascript {
 	public function toggle($element = 'this')
 	{
 		return $this->js->_toggle($element);
-
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Toggle Class
 	 *
@@ -580,9 +509,7 @@ class CI_Javascript {
 	{
 		return $this->js->_toggleClass($element, $class);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Show
 	 *
@@ -597,9 +524,7 @@ class CI_Javascript {
 	{
 		return $this->js->_show($element, $speed, $callback);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Compile
 	 *
@@ -613,9 +538,7 @@ class CI_Javascript {
 	{
 		$this->js->_compile($view_var, $script_tags);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Clear Compile
 	 *
@@ -627,9 +550,7 @@ class CI_Javascript {
 	{
 		$this->js->_clear_compile();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * External
 	 *
@@ -641,33 +562,21 @@ class CI_Javascript {
 	 */
 	public function external($external_file = '', $relative = FALSE)
 	{
-		if ($external_file !== '')
-		{
+		if ($external_file !== '') {
 			$this->_javascript_location = $external_file;
-		}
-		elseif ($this->CI->config->item('javascript_location') !== '')
-		{
+		} elseif ($this->CI->config->item('javascript_location') !== '') {
 			$this->_javascript_location = $this->CI->config->item('javascript_location');
 		}
-
-		if ($relative === TRUE OR strpos($external_file, 'http://') === 0 OR strpos($external_file, 'https://') === 0)
-		{
+		if ($relative === TRUE or strpos($external_file, 'http://') === 0 or strpos($external_file, 'https://') === 0) {
 			$str = $this->_open_script($external_file);
+		} elseif (strpos($this->_javascript_location, 'http://') !== FALSE) {
+			$str = $this->_open_script($this->_javascript_location . $external_file);
+		} else {
+			$str = $this->_open_script($this->CI->config->slash_item('base_url') . $this->_javascript_location . $external_file);
 		}
-		elseif (strpos($this->_javascript_location, 'http://') !== FALSE)
-		{
-			$str = $this->_open_script($this->_javascript_location.$external_file);
-		}
-		else
-		{
-			$str = $this->_open_script($this->CI->config->slash_item('base_url').$this->_javascript_location.$external_file);
-		}
-
-		return $str.$this->_close_script();
+		return $str . $this->_close_script();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Inline
 	 *
@@ -680,12 +589,10 @@ class CI_Javascript {
 	public function inline($script, $cdata = TRUE)
 	{
 		return $this->_open_script()
-			. ($cdata ? "\n// <![CDATA[\n".$script."\n// ]]>\n" : "\n".$script."\n")
+			. ($cdata ? "\n// <![CDATA[\n" . $script . "\n// ]]>\n" : "\n" . $script . "\n")
 			. $this->_close_script();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Open Script
 	 *
@@ -696,12 +603,10 @@ class CI_Javascript {
 	 */
 	protected function _open_script($src = '')
 	{
-		return '<script type="text/javascript" charset="'.strtolower($this->CI->config->item('charset')).'"'
-			.($src === '' ? '>' : ' src="'.$src.'">');
+		return '<script type="text/javascript" charset="' . strtolower($this->CI->config->item('charset')) . '"'
+			. ($src === '' ? '>' : ' src="' . $src . '">');
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Close Script
 	 *
@@ -712,13 +617,11 @@ class CI_Javascript {
 	 */
 	protected function _close_script($extra = "\n")
 	{
-		return '</script>'.$extra;
+		return '</script>' . $extra;
 	}
-
 	// --------------------------------------------------------------------
 	// AJAX-Y STUFF - still a testbed
 	// --------------------------------------------------------------------
-
 	/**
 	 * Update
 	 *
@@ -733,9 +636,7 @@ class CI_Javascript {
 	{
 		return $this->js->_updater($element, $speed, $callback);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Generate JSON
 	 *
@@ -749,58 +650,35 @@ class CI_Javascript {
 	{
 		// JSON data can optionally be passed to this function
 		// either as a database result object or an array, or a user supplied array
-		if ($result !== NULL)
-		{
-			if (is_object($result))
-			{
+		if ($result !== NULL) {
+			if (is_object($result)) {
 				$json_result = is_callable(array($result, 'result_array')) ? $result->result_array() : (array) $result;
-			}
-			elseif (is_array($result))
-			{
+			} elseif (is_array($result)) {
 				$json_result = $result;
-			}
-			else
-			{
+			} else {
 				return $this->_prep_args($result);
 			}
-		}
-		else
-		{
+		} else {
 			return 'null';
 		}
-
 		$json = array();
 		$_is_assoc = TRUE;
-
-		if ( ! is_array($json_result) && empty($json_result))
-		{
+		if (!is_array($json_result) && empty($json_result)) {
 			show_error('Generate JSON Failed - Illegal key, value pair.');
-		}
-		elseif ($match_array_type)
-		{
+		} elseif ($match_array_type) {
 			$_is_assoc = $this->_is_associative_array($json_result);
 		}
-
-		foreach ($json_result as $k => $v)
-		{
-			if ($_is_assoc)
-			{
-				$json[] = $this->_prep_args($k, TRUE).':'.$this->generate_json($v, $match_array_type);
-			}
-			else
-			{
+		foreach ($json_result as $k => $v) {
+			if ($_is_assoc) {
+				$json[] = $this->_prep_args($k, TRUE) . ':' . $this->generate_json($v, $match_array_type);
+			} else {
 				$json[] = $this->generate_json($v, $match_array_type);
 			}
 		}
-
 		$json = implode(',', $json);
-
-		return $_is_assoc ? '{'.$json.'}' : '['.$json.']';
-
+		return $_is_assoc ? '{' . $json . '}' : '[' . $json . ']';
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Is associative array
 	 *
@@ -811,19 +689,14 @@ class CI_Javascript {
 	 */
 	protected function _is_associative_array($arr)
 	{
-		foreach (array_keys($arr) as $key => $val)
-		{
-			if ($key !== $val)
-			{
+		foreach (array_keys($arr) as $key => $val) {
+			if ($key !== $val) {
 				return TRUE;
 			}
 		}
-
 		return FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Prep Args
 	 *
@@ -835,22 +708,14 @@ class CI_Javascript {
 	 */
 	protected function _prep_args($result, $is_key = FALSE)
 	{
-		if ($result === NULL)
-		{
+		if ($result === NULL) {
 			return 'null';
-		}
-		elseif (is_bool($result))
-		{
+		} elseif (is_bool($result)) {
 			return ($result === TRUE) ? 'true' : 'false';
-		}
-		elseif (is_string($result) OR $is_key)
-		{
-			return '"'.str_replace(array('\\', "\t", "\n", "\r", '"', '/'), array('\\\\', '\\t', '\\n', "\\r", '\"', '\/'), $result).'"';
-		}
-		elseif (is_scalar($result))
-		{
+		} elseif (is_string($result) or $is_key) {
+			return '"' . str_replace(array('\\', "\t", "\n", "\r", '"', '/'), array('\\\\', '\\t', '\\n', "\\r", '\"', '\/'), $result) . '"';
+		} elseif (is_scalar($result)) {
 			return $result;
 		}
 	}
-
 }

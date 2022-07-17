@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Model_auth extends CI_Model
 {
-
     function getUser($where)
     {
         return $this->db->get_where('user_akun', ['email_user' => $where]);
@@ -15,7 +13,6 @@ class Model_auth extends CI_Model
         $this->db->where('email_user', $where);
         return $this->db->get();
     }
-
     function getDataAnggota($id)
     {
         $this->db->select('*');
@@ -23,7 +20,6 @@ class Model_auth extends CI_Model
         $this->db->where('id_akun', $id);
         return $this->db->get();
     }
-
     function getWilayah()
     {
         return $this->db->get('wilayah')->result();
@@ -32,9 +28,7 @@ class Model_auth extends CI_Model
     {
         return $this->db->get_where('user_token', ['token' => $token]);
     }
-
     function deleteAkun($id)
-
     {
         $this->db->query("DELETE user_akun, data_anggota from user_akun LEFT join data_anggota on user_akun.id_user = data_anggota.id_akun WHERE user_akun.id_user =$id");
     }
@@ -42,7 +36,6 @@ class Model_auth extends CI_Model
     {
         $this->db->query("DELETE from keanggotaan where id_d_anggota = $where ");
     }
-
     function accActivation($email)
     {
         $this->db->set('is_active', 1);
@@ -63,9 +56,8 @@ class Model_auth extends CI_Model
         $this->db->where('email_user', $email);
         $this->db->update('user_akun');
     }
-  function cekEmailToken($email)
+    function cekEmailToken($email)
     {
         return $this->db->get_where('user_token', ['email' => $email]);
     }
-
 }

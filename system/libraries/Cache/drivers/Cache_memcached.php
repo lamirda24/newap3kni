@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 2.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Memcached Caching Class
  *
@@ -46,15 +46,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link
  */
-class CI_Cache_memcached extends CI_Driver {
-
+class CI_Cache_memcached extends CI_Driver
+{
 	/**
 	 * Holds the memcached object
 	 *
 	 * @var object
 	 */
 	protected $_memcached;
-
 	/**
 	 * Memcached configuration
 	 *
@@ -67,9 +66,7 @@ class CI_Cache_memcached extends CI_Driver {
 			'weight'	=> 1
 		)
 	);
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Class constructor
 	 *
@@ -80,36 +77,24 @@ class CI_Cache_memcached extends CI_Driver {
 	public function __construct()
 	{
 		// Try to load memcached server info from the config file.
-		$CI =& get_instance();
+		$CI = &get_instance();
 		$defaults = $this->_config['default'];
-
-		if ($CI->config->load('memcached', TRUE, TRUE))
-		{
+		if ($CI->config->load('memcached', TRUE, TRUE)) {
 			$this->_config = $CI->config->config['memcached'];
 		}
-
-		if (class_exists('Memcached', FALSE))
-		{
+		if (class_exists('Memcached', FALSE)) {
 			$this->_memcached = new Memcached();
-		}
-		elseif (class_exists('Memcache', FALSE))
-		{
+		} elseif (class_exists('Memcache', FALSE)) {
 			$this->_memcached = new Memcache();
-		}
-		else
-		{
+		} else {
 			log_message('error', 'Cache: Failed to create Memcache(d) object; extension not loaded?');
 			return;
 		}
-
-		foreach ($this->_config as $cache_server)
-		{
-			isset($cache_server['hostname']) OR $cache_server['hostname'] = $defaults['host'];
-			isset($cache_server['port']) OR $cache_server['port'] = $defaults['port'];
-			isset($cache_server['weight']) OR $cache_server['weight'] = $defaults['weight'];
-
-			if ($this->_memcached instanceof Memcache)
-			{
+		foreach ($this->_config as $cache_server) {
+			isset($cache_server['hostname']) or $cache_server['hostname'] = $defaults['host'];
+			isset($cache_server['port']) or $cache_server['port'] = $defaults['port'];
+			isset($cache_server['weight']) or $cache_server['weight'] = $defaults['weight'];
+			if ($this->_memcached instanceof Memcache) {
 				// Third parameter is persistence and defaults to TRUE.
 				$this->_memcached->addServer(
 					$cache_server['hostname'],
@@ -117,9 +102,7 @@ class CI_Cache_memcached extends CI_Driver {
 					TRUE,
 					$cache_server['weight']
 				);
-			}
-			elseif ($this->_memcached instanceof Memcached)
-			{
+			} elseif ($this->_memcached instanceof Memcached) {
 				$this->_memcached->addServer(
 					$cache_server['hostname'],
 					$cache_server['port'],
@@ -128,9 +111,7 @@ class CI_Cache_memcached extends CI_Driver {
 			}
 		}
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Fetch from cache
 	 *
@@ -140,12 +121,9 @@ class CI_Cache_memcached extends CI_Driver {
 	public function get($id)
 	{
 		$data = $this->_memcached->get($id);
-
 		return is_array($data) ? $data[0] : $data;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Save
 	 *
@@ -157,25 +135,17 @@ class CI_Cache_memcached extends CI_Driver {
 	 */
 	public function save($id, $data, $ttl = 60, $raw = FALSE)
 	{
-		if ($raw !== TRUE)
-		{
+		if ($raw !== TRUE) {
 			$data = array($data, time(), $ttl);
 		}
-
-		if ($this->_memcached instanceof Memcached)
-		{
+		if ($this->_memcached instanceof Memcached) {
 			return $this->_memcached->set($id, $data, $ttl);
-		}
-		elseif ($this->_memcached instanceof Memcache)
-		{
+		} elseif ($this->_memcached instanceof Memcache) {
 			return $this->_memcached->set($id, $data, 0, $ttl);
 		}
-
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Delete from Cache
 	 *
@@ -186,9 +156,7 @@ class CI_Cache_memcached extends CI_Driver {
 	{
 		return $this->_memcached->delete($id);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Increment a raw value
 	 *
@@ -198,16 +166,12 @@ class CI_Cache_memcached extends CI_Driver {
 	 */
 	public function increment($id, $offset = 1)
 	{
-		if (($result = $this->_memcached->increment($id, $offset)) === FALSE)
-		{
+		if (($result = $this->_memcached->increment($id, $offset)) === FALSE) {
 			return $this->_memcached->add($id, $offset) ? $offset : FALSE;
 		}
-
 		return $result;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Decrement a raw value
 	 *
@@ -217,16 +181,12 @@ class CI_Cache_memcached extends CI_Driver {
 	 */
 	public function decrement($id, $offset = 1)
 	{
-		if (($result = $this->_memcached->decrement($id, $offset)) === FALSE)
-		{
+		if (($result = $this->_memcached->decrement($id, $offset)) === FALSE) {
 			return $this->_memcached->add($id, 0) ? 0 : FALSE;
 		}
-
 		return $result;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Clean the Cache
 	 *
@@ -236,9 +196,7 @@ class CI_Cache_memcached extends CI_Driver {
 	{
 		return $this->_memcached->flush();
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Info
 	 *
@@ -248,9 +206,7 @@ class CI_Cache_memcached extends CI_Driver {
 	{
 		return $this->_memcached->getStats();
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get Cache Metadata
 	 *
@@ -260,23 +216,17 @@ class CI_Cache_memcached extends CI_Driver {
 	public function get_metadata($id)
 	{
 		$stored = $this->_memcached->get($id);
-
-		if (count($stored) !== 3)
-		{
+		if (count($stored) !== 3) {
 			return FALSE;
 		}
-
 		list($data, $time, $ttl) = $stored;
-
 		return array(
 			'expire'	=> $time + $ttl,
 			'mtime'		=> $time,
 			'data'		=> $data
 		);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Is supported
 	 *
@@ -287,11 +237,9 @@ class CI_Cache_memcached extends CI_Driver {
 	 */
 	public function is_supported()
 	{
-		return (extension_loaded('memcached') OR extension_loaded('memcache'));
+		return (extension_loaded('memcached') or extension_loaded('memcache'));
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Class destructor
 	 *
@@ -301,12 +249,9 @@ class CI_Cache_memcached extends CI_Driver {
 	 */
 	public function __destruct()
 	{
-		if ($this->_memcached instanceof Memcache)
-		{
+		if ($this->_memcached instanceof Memcache) {
 			$this->_memcached->close();
-		}
-		elseif ($this->_memcached instanceof Memcached && method_exists($this->_memcached, 'quit'))
-		{
+		} elseif ($this->_memcached instanceof Memcached && method_exists($this->_memcached, 'quit')) {
 			$this->_memcached->quit();
 		}
 	}

@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Model_anggota extends CI_Model
 {
-
     function getDataAnggota($where)
     {
         $this->db->select('*');
@@ -38,7 +36,6 @@ class Model_anggota extends CI_Model
         where data_pembayaran.id_anggota=" . $id;
         return $this->db->query($query);
     }
-
     function getDataPembayaran($where)
     {
         $this->db->select('*');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 2.1.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * PDO Database Adapter Class
  *
@@ -50,24 +50,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_pdo_driver extends CI_DB {
-
+class CI_DB_pdo_driver extends CI_DB
+{
 	/**
 	 * Database driver
 	 *
 	 * @var	string
 	 */
 	public $dbdriver = 'pdo';
-
 	/**
 	 * PDO Options
 	 *
 	 * @var	array
 	 */
 	public $options = array();
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Class constructor
 	 *
@@ -79,45 +76,31 @@ class CI_DB_pdo_driver extends CI_DB {
 	public function __construct($params)
 	{
 		parent::__construct($params);
-
-		if (preg_match('/([^:]+):/', $this->dsn, $match) && count($match) === 2)
-		{
+		if (preg_match('/([^:]+):/', $this->dsn, $match) && count($match) === 2) {
 			// If there is a minimum valid dsn string pattern found, we're done
 			// This is for general PDO users, who tend to have a full DSN string.
 			$this->subdriver = $match[1];
 			return;
 		}
 		// Legacy support for DSN specified in the hostname field
-		elseif (preg_match('/([^:]+):/', $this->hostname, $match) && count($match) === 2)
-		{
+		elseif (preg_match('/([^:]+):/', $this->hostname, $match) && count($match) === 2) {
 			$this->dsn = $this->hostname;
 			$this->hostname = NULL;
 			$this->subdriver = $match[1];
 			return;
-		}
-		elseif (in_array($this->subdriver, array('mssql', 'sybase'), TRUE))
-		{
+		} elseif (in_array($this->subdriver, array('mssql', 'sybase'), TRUE)) {
 			$this->subdriver = 'dblib';
-		}
-		elseif ($this->subdriver === '4D')
-		{
+		} elseif ($this->subdriver === '4D') {
 			$this->subdriver = '4d';
-		}
-		elseif ( ! in_array($this->subdriver, array('4d', 'cubrid', 'dblib', 'firebird', 'ibm', 'informix', 'mysql', 'oci', 'odbc', 'pgsql', 'sqlite', 'sqlsrv'), TRUE))
-		{
+		} elseif (!in_array($this->subdriver, array('4d', 'cubrid', 'dblib', 'firebird', 'ibm', 'informix', 'mysql', 'oci', 'odbc', 'pgsql', 'sqlite', 'sqlsrv'), TRUE)) {
 			log_message('error', 'PDO: Invalid or non-existent subdriver');
-
-			if ($this->db_debug)
-			{
+			if ($this->db_debug) {
 				show_error('Invalid or non-existent PDO subdriver');
 			}
 		}
-
 		$this->dsn = NULL;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Database connection
 	 *
@@ -126,28 +109,19 @@ class CI_DB_pdo_driver extends CI_DB {
 	 */
 	public function db_connect($persistent = FALSE)
 	{
-		if ($persistent === TRUE)
-		{
+		if ($persistent === TRUE) {
 			$this->options[PDO::ATTR_PERSISTENT] = TRUE;
 		}
-
-		try
-		{
+		try {
 			return new PDO($this->dsn, $this->username, $this->password, $this->options);
-		}
-		catch (PDOException $e)
-		{
-			if ($this->db_debug && empty($this->failover))
-			{
+		} catch (PDOException $e) {
+			if ($this->db_debug && empty($this->failover)) {
 				$this->display_error($e->getMessage(), '', TRUE);
 			}
-
 			return FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Database version number
 	 *
@@ -155,24 +129,17 @@ class CI_DB_pdo_driver extends CI_DB {
 	 */
 	public function version()
 	{
-		if (isset($this->data_cache['version']))
-		{
+		if (isset($this->data_cache['version'])) {
 			return $this->data_cache['version'];
 		}
-
 		// Not all subdrivers support the getAttribute() method
-		try
-		{
+		try {
 			return $this->data_cache['version'] = $this->conn_id->getAttribute(PDO::ATTR_SERVER_VERSION);
-		}
-		catch (PDOException $e)
-		{
+		} catch (PDOException $e) {
 			return parent::version();
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Execute the query
 	 *
@@ -183,9 +150,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		return $this->conn_id->query($sql);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Begin Transaction
 	 *
@@ -195,9 +160,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		return $this->conn_id->beginTransaction();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Commit Transaction
 	 *
@@ -207,9 +170,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		return $this->conn_id->commit();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Rollback Transaction
 	 *
@@ -219,9 +180,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		return $this->conn_id->rollBack();
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Platform-dependent string escape
 	 *
@@ -232,15 +191,12 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		// Escape the string
 		$str = $this->conn_id->quote($str);
-
 		// If there are duplicated quotes, trim them away
 		return ($str[0] === "'")
 			? substr($str, 1, -1)
 			: $str;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Affected Rows
 	 *
@@ -250,9 +206,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		return is_object($this->result_id) ? $this->result_id->rowCount() : 0;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Insert ID
 	 *
@@ -263,9 +217,7 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		return $this->conn_id->lastInsertId($name);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data query
 	 *
@@ -276,11 +228,9 @@ class CI_DB_pdo_driver extends CI_DB {
 	 */
 	protected function _field_data($table)
 	{
-		return 'SELECT TOP 1 * FROM '.$this->protect_identifiers($table);
+		return 'SELECT TOP 1 * FROM ' . $this->protect_identifiers($table);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Error
 	 *
@@ -293,23 +243,16 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		$error = array('code' => '00000', 'message' => '');
 		$pdo_error = $this->conn_id->errorInfo();
-
-		if (empty($pdo_error[0]))
-		{
+		if (empty($pdo_error[0])) {
 			return $error;
 		}
-
-		$error['code'] = isset($pdo_error[1]) ? $pdo_error[0].'/'.$pdo_error[1] : $pdo_error[0];
-		if (isset($pdo_error[2]))
-		{
-			 $error['message'] = $pdo_error[2];
+		$error['code'] = isset($pdo_error[1]) ? $pdo_error[0] . '/' . $pdo_error[1] : $pdo_error[0];
+		if (isset($pdo_error[2])) {
+			$error['message'] = $pdo_error[2];
 		}
-
 		return $error;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Truncate statement
 	 *
@@ -323,7 +266,6 @@ class CI_DB_pdo_driver extends CI_DB {
 	 */
 	protected function _truncate($table)
 	{
-		return 'TRUNCATE TABLE '.$table;
+		return 'TRUNCATE TABLE ' . $table;
 	}
-
 }

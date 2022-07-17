@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Cookie Helpers
  *
@@ -46,11 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/helpers/cookie_helper.html
  */
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('set_cookie'))
-{
+if (!function_exists('set_cookie')) {
 	/**
 	 * Set cookie
 	 *
@@ -73,11 +70,8 @@ if ( ! function_exists('set_cookie'))
 		get_instance()->input->set_cookie($name, $value, $expire, $domain, $path, $prefix, $secure, $httponly);
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('get_cookie'))
-{
+if (!function_exists('get_cookie')) {
 	/**
 	 * Fetch an item from the COOKIE array
 	 *
@@ -87,16 +81,13 @@ if ( ! function_exists('get_cookie'))
 	 */
 	function get_cookie($index, $xss_clean = NULL)
 	{
-		is_bool($xss_clean) OR $xss_clean = (config_item('global_xss_filtering') === TRUE);
+		is_bool($xss_clean) or $xss_clean = (config_item('global_xss_filtering') === TRUE);
 		$prefix = isset($_COOKIE[$index]) ? '' : config_item('cookie_prefix');
-		return get_instance()->input->cookie($prefix.$index, $xss_clean);
+		return get_instance()->input->cookie($prefix . $index, $xss_clean);
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('delete_cookie'))
-{
+if (!function_exists('delete_cookie')) {
 	/**
 	 * Delete a COOKIE
 	 *

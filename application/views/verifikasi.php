@@ -1,11 +1,8 @@
 <div class="page-container login-container">
-
     <!-- Page content -->
     <div class="page-content">
-
         <!-- Main content -->
         <div class="content-wrapper">
-
             <!-- Content area -->
             <div class="content">
                 <div class="row">
@@ -17,7 +14,6 @@
                             </div>
                             <hr>
                             <div class="caption">
-
                                 <h6 style="text-align:justify;">
                                     Dokumen digital dan atau cetak ini dapat dijadikan sebagai alat bukti yang sah, format dan isi telah disesuaikan dengan kententuan yang berlaku sejak disahkan, dan secara otomatis terdaftar dan terdokumentasi dalam Asosiasi Profesi Pendidikan Pancasila dan Kewarganegaraan Indonesia.
                                 </h6>
@@ -50,7 +46,6 @@
                                         <td>:</td>
                                         <td> <?= date('d F Y', strtotime($anggota['bergabung'])) ?> </td>
                                     </tr>
-
                                     <tr>
                                         <td style="line-height:35px">Status Keanggotaan</td>
                                         <td>:</td>
@@ -58,7 +53,6 @@
                                     </tr>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>

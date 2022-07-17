@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.3.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Postgre Utility Class
  *
@@ -46,24 +46,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_postgre_utility extends CI_DB_utility {
-
+class CI_DB_postgre_utility extends CI_DB_utility
+{
 	/**
 	 * List databases statement
 	 *
 	 * @var	string
 	 */
 	protected $_list_databases	= 'SELECT datname FROM pg_database';
-
 	/**
 	 * OPTIMIZE TABLE statement
 	 *
 	 * @var	string
 	 */
 	protected $_optimize_table	= 'REINDEX TABLE %s';
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Export
 	 *

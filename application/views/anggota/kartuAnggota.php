@@ -1,6 +1,5 @@
 <!-- Main content -->
 <div class="content-wrapper">
-
     <!-- Page header -->
     <div class="page-header">
         <div class="page-header-content">
@@ -8,7 +7,6 @@
                 <h4><i class="icon-primitive-square position-left"></i> <span class="text-semibold">Ubah Profile</span> - <?= $nama ?></h4>
             </div>
         </div>
-
         <div class="breadcrumb-line">
             <ul class="breadcrumb">
                 <li><a href="index.html"><i class="icon-primitive-square position-left"></i>Home</a></li>
@@ -29,7 +27,6 @@
                     <div class="bg-danger-800">
                         <img class="bg-danger" height="250" src="<?= base_url('assets/user/foto/' . $anggota['foto_anggota']) ?>">
                     </div>
-
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>

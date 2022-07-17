@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Inflector Helpers
  *
@@ -46,11 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/helpers/inflector_helper.html
  */
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('singular'))
-{
+if (!function_exists('singular')) {
 	/**
 	 * Singular
 	 *
@@ -62,12 +59,9 @@ if ( ! function_exists('singular'))
 	function singular($str)
 	{
 		$result = strval($str);
-
-		if ( ! word_is_countable($result))
-		{
+		if (!word_is_countable($result)) {
 			return $result;
 		}
-
 		$singular_rules = array(
 			'/(matr)ices$/'		=> '\1ix',
 			'/(vert|ind)ices$/'	=> '\1ex',
@@ -98,24 +92,17 @@ if ( ! function_exists('singular'))
 			'/(quiz)zes$/'		=> '\1',
 			'/([^us])s$/'		=> '\1'
 		);
-
-		foreach ($singular_rules as $rule => $replacement)
-		{
-			if (preg_match($rule, $result))
-			{
+		foreach ($singular_rules as $rule => $replacement) {
+			if (preg_match($rule, $result)) {
 				$result = preg_replace($rule, $replacement, $result);
 				break;
 			}
 		}
-
 		return $result;
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('plural'))
-{
+if (!function_exists('plural')) {
 	/**
 	 * Plural
 	 *
@@ -127,12 +114,9 @@ if ( ! function_exists('plural'))
 	function plural($str)
 	{
 		$result = strval($str);
-
-		if ( ! word_is_countable($result))
-		{
+		if (!word_is_countable($result)) {
 			return $result;
 		}
-
 		$plural_rules = array(
 			'/(quiz)$/'                => '\1zes',      // quizzes
 			'/^(ox)$/'                 => '\1\2en',     // ox
@@ -155,24 +139,17 @@ if ( ! function_exists('plural'))
 			'/s$/'                     => 's',          // no change (compatibility)
 			'/$/'                      => 's',
 		);
-
-		foreach ($plural_rules as $rule => $replacement)
-		{
-			if (preg_match($rule, $result))
-			{
+		foreach ($plural_rules as $rule => $replacement) {
+			if (preg_match($rule, $result)) {
 				$result = preg_replace($rule, $replacement, $result);
 				break;
 			}
 		}
-
 		return $result;
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('camelize'))
-{
+if (!function_exists('camelize')) {
 	/**
 	 * Camelize
 	 *
@@ -183,14 +160,11 @@ if ( ! function_exists('camelize'))
 	 */
 	function camelize($str)
 	{
-		return strtolower($str[0]).substr(str_replace(' ', '', ucwords(preg_replace('/[\s_]+/', ' ', $str))), 1);
+		return strtolower($str[0]) . substr(str_replace(' ', '', ucwords(preg_replace('/[\s_]+/', ' ', $str))), 1);
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('underscore'))
-{
+if (!function_exists('underscore')) {
 	/**
 	 * Underscore
 	 *
@@ -204,11 +178,8 @@ if ( ! function_exists('underscore'))
 		return preg_replace('/[\s]+/', '_', trim(MB_ENABLED ? mb_strtolower($str) : strtolower($str)));
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('humanize'))
-{
+if (!function_exists('humanize')) {
 	/**
 	 * Humanize
 	 *
@@ -220,14 +191,11 @@ if ( ! function_exists('humanize'))
 	 */
 	function humanize($str, $separator = '_')
 	{
-		return ucwords(preg_replace('/['.preg_quote($separator).']+/', ' ', trim(MB_ENABLED ? mb_strtolower($str) : strtolower($str))));
+		return ucwords(preg_replace('/[' . preg_quote($separator) . ']+/', ' ', trim(MB_ENABLED ? mb_strtolower($str) : strtolower($str))));
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('word_is_countable'))
-{
+if (!function_exists('word_is_countable')) {
 	/**
 	 * Checks if the given word has a plural version.
 	 *
@@ -236,7 +204,7 @@ if ( ! function_exists('word_is_countable'))
 	 */
 	function word_is_countable($word)
 	{
-		return ! in_array(
+		return !in_array(
 			strtolower($word),
 			array(
 				'audio',
@@ -274,11 +242,8 @@ if ( ! function_exists('word_is_countable'))
 		);
 	}
 }
-
 // --------------------------------------------------------------------
-
-if ( ! function_exists('is_countable'))
-{
+if (!function_exists('is_countable')) {
 	function is_countable($word)
 	{
 		trigger_error('is_countable() is a native PHP function since version 7.3.0; use word_is_countable() instead', E_USER_WARNING);

@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Model_verif extends CI_Model
 {
     function getDataVerif($id)

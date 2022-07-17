@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 2.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Dummy Caching Class
  *
@@ -46,8 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link
  */
-class CI_Cache_dummy extends CI_Driver {
-
+class CI_Cache_dummy extends CI_Driver
+{
 	/**
 	 * Get
 	 *
@@ -60,9 +60,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Save
 	 *
@@ -76,9 +74,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Delete from Cache
 	 *
@@ -89,9 +85,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Increment a raw value
 	 *
@@ -103,9 +97,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Decrement a raw value
 	 *
@@ -117,9 +109,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Clean the cache
 	 *
@@ -129,22 +119,18 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cache Info
 	 *
 	 * @param	string	user/filehits
 	 * @return	bool	FALSE
 	 */
-	 public function cache_info($type = NULL)
-	 {
-		 return FALSE;
-	 }
-
+	public function cache_info($type = NULL)
+	{
+		return FALSE;
+	}
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get Cache Metadata
 	 *
@@ -155,9 +141,7 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return FALSE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Is this caching driver supported on the system?
 	 * Of course this one is.
@@ -168,5 +152,4 @@ class CI_Cache_dummy extends CI_Driver {
 	{
 		return TRUE;
 	}
-
 }

@@ -1,22 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Anggota extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('Model_anggota');
         $this->load->model('Model_auth');
-
         is_login();
     }
-
     public function index()
     {
-
         $user = $this->session->userdata('id');
         $data['nama'] = $this->session->userdata('nama');
         $data['role'] = $this->session->userdata('role');
@@ -37,7 +32,6 @@ class Anggota extends CI_Controller
         $this->load->view('anggota/index', $data);
         $this->load->view('templateUser/footer', $data);
     }
-
     public function profile()
     {
         $user = $this->session->userdata('id');
@@ -58,7 +52,6 @@ class Anggota extends CI_Controller
             // redirect('pembayaran');
         }
         $cekrows = $this->Model_anggota->getDataPembayaran($data['anggota']['id_anggota']);
-
         if ($cekrows->num_rows()) {
             $data['pembayaran'] = $this->Model_anggota->getDataPembayaran($data['anggota']['id_anggota'])->row_array();
             $data['history'] = $this->Model_anggota->getDataPembayaran($data['anggota']['id_anggota'])->result();
@@ -87,7 +80,6 @@ class Anggota extends CI_Controller
         $this->form_validation->set_rules('newPassword1', 'Password', 'required|trim|matches[newPassword]', [
             'matches' => 'Password does not match!',
         ]);
-
         if ($this->form_validation->run() == false) {
             $this->load->view('templateUser/header', $data);
             $this->load->view('templateUser/sidebar', $data);
@@ -154,13 +146,11 @@ class Anggota extends CI_Controller
         } else {
             $data['statusA'] = '<span class="label label-danger">Non-Aktif</span>';
         }
-
         $this->load->view('templateUser/header', $data);
         $this->load->view('templateUser/sidebar', $data);
         $this->load->view('anggota/pembayaran', $data);
         $this->load->view('templateUser/footer', $data);
     }
-
     public function uploadPembayaran()
     {
         $user = $this->session->userdata('id');
@@ -172,7 +162,6 @@ class Anggota extends CI_Controller
             $config['upload_path'] = './assets/user/bukti';
             $config['encrypt_name'] = true;
             $this->load->library('upload', $config);
-
             if ($this->upload->do_upload('foto')) {
                 $namafile = $this->upload->data('file_name');
             } else {
@@ -194,7 +183,6 @@ class Anggota extends CI_Controller
             redirect('Anggota/pembayaran');
         }
     }
-
     public function editProfile()
     {
         $user = $this->session->userdata('id');
@@ -207,7 +195,6 @@ class Anggota extends CI_Controller
         $data['anggota'] = $this->Model_anggota->getDataAnggota($user)->row_array();
         $data['wilayah'] = $this->Model_auth->getWilayah();
         $defaultFoto = $data['anggota']['foto_anggota'];
-
         if ($data['anggota']['status_keanggotaan'] == 1) {
             $data['statusA'] = '<span class="label label-success">Aktif</span>';
         } else {
@@ -221,7 +208,6 @@ class Anggota extends CI_Controller
         $this->form_validation->set_rules('gelar', 'Gelar', 'required|trim', [
             'required' => 'Gelar pendidikan harus diisi!'
         ]);
-
         $this->form_validation->set_rules('notlp', 'Nomor Telepon', 'required|trim|numeric|min_length[10]|max_length[13]', [
             'required' => 'Nomor Telepon Harus diisi!',
             'numeric' => 'Harus diisi dengan angka!',
@@ -231,7 +217,6 @@ class Anggota extends CI_Controller
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', ['required' => 'Alamat harus diisi!']);
         $this->form_validation->set_rules('asal', 'Asal', 'required|trim', ['required' => 'Asal Instansi harus diisi!']);
         //--
-
         if ($this->form_validation->run() == false) {
             $this->load->view('templateUser/header', $data);
             $this->load->view('templateUser/sidebar', $data);
@@ -246,7 +231,6 @@ class Anggota extends CI_Controller
                 $config['upload_path'] = './assets/user/foto';
                 $config['encrypt_name'] = true;
                 $this->load->library('upload', $config);
-
                 if ($this->upload->do_upload('foto')) {
                     $old_img = $data['anggota']['foto_anggota'];
                     $namafile = $this->upload->data('file_name');

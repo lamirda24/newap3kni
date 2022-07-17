@@ -1,6 +1,5 @@
 <!-- Main content -->
 <div class="content-wrapper">
-
     <!-- Page header -->
     <div class="page-header">
         <div class="page-header-content">
@@ -8,7 +7,6 @@
                 <h4><i class="icon-primitive-square position-left"></i> <span class="text-semibold">Home</span> - <?= $nama ?></h4>
             </div>
         </div>
-
         <div class="breadcrumb-line">
             <ul class="breadcrumb">
                 <li><a href="index.html"><i class="icon-primitive-square position-left"></i>Home</a></li>
@@ -17,8 +15,6 @@
         </div>
     </div>
     <!-- /page header -->
-
-
     <!-- Content area -->
     <div class="content">
         <div class="col-lg-3 col-md-6">
@@ -31,7 +27,6 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="caption text-center">
                     <h6 class="text-semibold no-margin"><?= $nama ?><small class="display-block"><?= $anggota['jabatan_anggota'] ?></small></h6>
                 </div>

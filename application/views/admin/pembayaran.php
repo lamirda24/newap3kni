@@ -1,5 +1,4 @@
 <div class="page-header">
-
     <!-- Header content -->
     <div class="page-header-content">
         <div class="page-title">
@@ -7,14 +6,11 @@
         </div>
     </div>
     <!-- /header content -->
-
-
     <!-- Toolbar -->
     <div class="navbar navbar-default navbar-xs">
         <ul class="nav navbar-nav visible-xs-block">
             <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
         </ul>
-
         <div class="navbar-collapse collapse" id="navbar-filter">
             <ul class="nav navbar-nav element-active-slate-400">
                 <li class="active"><a href="#masuk" data-toggle="tab"><i class="icon-coin-dollar position-left"></i> Pembayaran Masuk</a></li>
@@ -23,10 +19,7 @@
         </div>
     </div>
     <!-- /toolbar -->
-
 </div>
-
-
 <div class="content">
     <?= $this->session->flashdata('message'); ?>
     <!-- User profile -->
@@ -46,7 +39,6 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="panel-body">
                                 <table id="data" class="table datatable-basic">
                                     <thead>
@@ -61,7 +53,6 @@
                                     <tbody>
                                         <?php $i = 1;
                                         foreach ($pembayaran as $p) : ?>
-
                                             <tr>
                                                 <td><?= $i++; ?></td>
                                                 <td><?= $p->nama_user; ?></td>
@@ -76,7 +67,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="tab-pane fade " id="riwayat">
                         <div class="panel panel-flat">
                             <div class="panel-heading">
@@ -89,7 +79,6 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="panel-body">
                                 <table id="data" class="table datatable-basic">
                                     <thead>
@@ -125,7 +114,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

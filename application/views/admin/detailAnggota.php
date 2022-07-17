@@ -1,21 +1,16 @@
 <div class="page-header">
-
     <!-- Header content -->
     <div class="page-header-content">
         <div class="page-title">
             <h4><i class="icon-primitive-square position-left"></i> <span class="text-semibold"><?= $breadcumb ?> </span>- <?= $anggota['nama_user'] ?></h4>
-
         </div>
     </div>
     <!-- /header content -->
-
-
     <!-- Toolbar -->
     <div class="navbar navbar-default navbar-xs">
         <ul class="nav navbar-nav visible-xs-block">
             <li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
         </ul>
-
         <div class="navbar-collapse collapse" id="navbar-filter">
             <ul class="nav navbar-nav element-active-slate-400">
                 <li class="active"><a href="#profile" data-toggle="tab"><i class="icon-profile position-left"></i> Profile</a></li>
@@ -24,7 +19,6 @@
         </div>
     </div>
     <!-- /toolbar -->
-
 </div>
 <!-- /page header -->
 <div class="content">
@@ -32,22 +26,14 @@
     <!-- User profile -->
     <div class="row">
         <div class="col-lg-9">
-
-
             <div class="tabbable">
-
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="profile">
-
-
                         <!-- Timeline -->
                         <div class="content-group">
                             <div class="timeline-container">
-
                                 <!-- Sales stats -->
                                 <div class="timeline-row">
-
-
                                     <div class="panel panel-flat timeline-content">
                                         <div class="panel-body">
                                             <div class="row">
@@ -95,41 +81,24 @@
                                                     <hr>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /sales stats -->
-
-
                                 <!-- Blog post -->
-
                                 <!-- /blog post -->
-
-
                                 <!-- Date stamp -->
                                 <!-- /date stamp -->
-
-
                                 <!-- Invoices -->
-
                                 <!-- /invoices -->
-
-
                                 <!-- Messages -->
-
                                 <!-- /messages -->
-
-
                                 <!-- Video posts -->
                                 <!-- /video posts -->
-
                             </div>
                         </div>
                         <!-- /timeline -->
-
                     </div>
-
                     <!--tab schedule-->
                     <div class="tab-pane fade " id="riwayat">
                         <div class="panel panel-flat">
@@ -143,7 +112,6 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="panel-body">
                                 <table id="data" class="table datatable-basic">
                                     <thead>
@@ -175,15 +143,12 @@
                             </div>
                         </div>
                     </div>
-
                     <!--tab setting-->
                 </div>
             </div>
         </div>
-
         <!--Menu sebelah kanan -->
         <div class="col-lg-3">
-
             <!-- User thumbnail -->
             <div class="thumbnail">
                 <div class="thumb thumb-rounded thumb-slide">
@@ -191,22 +156,16 @@
                     <div class="caption-overflow">
                         <span>
                             <a href="#" class="btn bg-success-400 btn-icon btn-xs" data-toggle="modal" data-target="#profilepict"><i class="icon-zoomin3"></i></a>
-
                     </div>
                 </div>
-
                 <div class="caption text-center">
                     <h5 class="text-semibold no-margin"><?= $anggota['nama_user'] ?><small class="display-block"><?= $anggota['jabatan_anggota'] ?></small></h5>
                     <ul class="icons-list mt-15">
                         <li><?= $anggota['nama_wilayah'] ?></li>
                     </ul>
-
-
                 </div>
             </div>
             <!-- /user thumbnail -->
-
-
             <!-- Navigation -->
             <div class="panel">
                 <div class="panel-heading">
@@ -222,13 +181,10 @@
                 </div>
             </div>
             <!-- /navigation -->
-
         </div>
     </div>
     <div>
-
     </div>
-
     <!-- /user profile -->
     <div id="profilepict" class="modal fade">
         <div class="modal-dialog modal-centered">

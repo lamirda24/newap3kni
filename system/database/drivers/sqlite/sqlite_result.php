@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.3.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * SQLite Result Class
  *
@@ -46,8 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_sqlite_result extends CI_DB_result {
-
+class CI_DB_sqlite_result extends CI_DB_result
+{
 	/**
 	 * Number of rows in the result set
 	 *
@@ -59,9 +59,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 			? $this->num_rows
 			: $this->num_rows = @sqlite_num_rows($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Number of fields in the result set
 	 *
@@ -71,9 +69,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return @sqlite_num_fields($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Fetch Field Names
 	 *
@@ -84,16 +80,12 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	public function list_fields()
 	{
 		$field_names = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-		{
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 			$field_names[$i] = sqlite_field_name($this->result_id, $i);
 		}
-
 		return $field_names;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field data
 	 *
@@ -104,19 +96,15 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	public function field_data()
 	{
 		$retval = array();
-		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++)
-		{
+		for ($i = 0, $c = $this->num_fields(); $i < $c; $i++) {
 			$retval[$i]			= new stdClass();
 			$retval[$i]->name		= sqlite_field_name($this->result_id, $i);
 			$retval[$i]->type		= NULL;
 			$retval[$i]->max_length		= NULL;
 		}
-
 		return $retval;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Data Seek
 	 *
@@ -131,9 +119,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return sqlite_seek($this->result_id, $n);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - associative array
 	 *
@@ -145,9 +131,7 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return sqlite_fetch_array($this->result_id);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Result - object
 	 *
@@ -160,5 +144,4 @@ class CI_DB_sqlite_result extends CI_DB_result {
 	{
 		return sqlite_fetch_object($this->result_id, $class_name);
 	}
-
 }

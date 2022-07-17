@@ -1,6 +1,5 @@
 <!-- Main content -->
 <div class="content-wrapper">
-
     <!-- Page header -->
     <div class="page-header">
         <div class="page-header-content">
@@ -8,7 +7,6 @@
                 <h4><i class="icon-primitive-square position-left"></i> <span class="text-semibold"><?= $breadcumb ?></span></h4>
             </div>
         </div>
-
         <div class="breadcrumb-line">
             <ul class="breadcrumb">
                 <li><a href="index.html"><i class="icon-primitive-square position-left"></i><?= $breadcumb ?></a></li>
@@ -18,7 +16,6 @@
         </div>
     </div>
     <!-- /page header -->
-
     <!-- Content area -->
     <div class="content">
         <div class="row">

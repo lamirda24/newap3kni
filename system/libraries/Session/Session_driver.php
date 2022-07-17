@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Session Driver Class
  *
@@ -46,24 +46,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author	Andrey Andreev
  * @link	https://codeigniter.com/user_guide/libraries/sessions.html
  */
-abstract class CI_Session_driver implements SessionHandlerInterface {
-
+abstract class CI_Session_driver implements SessionHandlerInterface
+{
 	protected $_config;
-
 	/**
 	 * Data fingerprint
 	 *
 	 * @var	bool
 	 */
 	protected $_fingerprint;
-
 	/**
 	 * Lock placeholder
 	 *
 	 * @var	mixed
 	 */
 	protected $_lock = FALSE;
-
 	/**
 	 * Read session ID
 	 *
@@ -73,7 +70,6 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 * @var	string
 	 */
 	protected $_session_id;
-
 	/**
 	 * Success and failure return values
 	 *
@@ -85,9 +81,7 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 * @var	mixed
 	 */
 	protected $_success, $_failure;
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Class constructor
 	 *
@@ -96,22 +90,16 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 */
 	public function __construct(&$params)
 	{
-		$this->_config =& $params;
-
-		if (is_php('7'))
-		{
+		$this->_config = &$params;
+		if (is_php('7')) {
 			$this->_success = TRUE;
 			$this->_failure = FALSE;
-		}
-		else
-		{
+		} else {
 			$this->_success = 0;
 			$this->_failure = -1;
 		}
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * PHP 5.x validate ID
 	 *
@@ -121,14 +109,11 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 */
 	public function php5_validate_id()
 	{
-		if (isset($_COOKIE[$this->_config['cookie_name']]) && ! $this->validateSessionId($_COOKIE[$this->_config['cookie_name']]))
-		{
+		if (isset($_COOKIE[$this->_config['cookie_name']]) && !$this->validateSessionId($_COOKIE[$this->_config['cookie_name']])) {
 			unset($_COOKIE[$this->_config['cookie_name']]);
 		}
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Cookie destroy
 	 *
@@ -149,9 +134,7 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 			TRUE
 		);
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Get lock
 	 *
@@ -167,9 +150,7 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 		$this->_lock = TRUE;
 		return TRUE;
 	}
-
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Release lock
 	 *
@@ -177,11 +158,9 @@ abstract class CI_Session_driver implements SessionHandlerInterface {
 	 */
 	protected function _release_lock()
 	{
-		if ($this->_lock)
-		{
+		if ($this->_lock) {
 			$this->_lock = FALSE;
 		}
-
 		return TRUE;
 	}
 }

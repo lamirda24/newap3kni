@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Auth extends CI_Controller
 {
     public function __construct()
@@ -9,9 +8,6 @@ class Auth extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('Model_auth');
     }
-
-
-
     public function index()
     {
         if ($this->session->userdata('role') == 1) {
@@ -19,7 +15,6 @@ class Auth extends CI_Controller
         } else if ($this->session->userdata('role') == 2) {
             redirect('Anggota');
         }
-
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [
             'required' => 'Email Harus disi!'
         ]);
@@ -33,7 +28,6 @@ class Auth extends CI_Controller
             $this->_login();
         }
     }
-
     public function registrasi()
     {
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim', [
@@ -47,7 +41,6 @@ class Auth extends CI_Controller
             'min_length' => 'Password must be at least 6 characters'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-
         if ($this->form_validation->run() == false) {
             $data['title'] = "AP3KNI | REGISTRASI";
             $this->load->view('templateAuth/header', $data);
@@ -62,7 +55,6 @@ class Auth extends CI_Controller
                 'is_active' => 0,
                 'date_created' => date('Y-m-d')
             ];
-
             $this->db->insert('user_akun', $data);
             $sess = array(
                 'nama_user' => htmlspecialchars($this->input->post('nama', true)),
@@ -73,7 +65,6 @@ class Auth extends CI_Controller
             //bikin redirect ke isi data diri
         }
     }
-
     public function dataDiri()
     {
         //cek ada session ato engga kalo ada ke data diri kalo engga balik regis
@@ -96,14 +87,11 @@ class Auth extends CI_Controller
             $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', ['required' => 'Alamat harus diisi!']);
             $this->form_validation->set_rules('asal', 'Asal', 'required|trim', ['required' => 'Asal Instansi harus diisi!']);
             //--
-
-
             if ($this->form_validation->run() == false) {
                 $this->load->view('templateAuth/header', $data);
                 $this->load->view('auth/dataDiri', $data);
                 $this->load->view('templateAuth/footer');
             } else {
-
                 $upload_foto = $_FILES['foto']['name'];
                 if ($upload_foto) {
                     $config['allowed_types'] = 'jpg|png|jpeg|JPG|PNG';
@@ -111,7 +99,6 @@ class Auth extends CI_Controller
                     $config['upload_path'] = './assets/user/foto';
                     $config['encrypt_name'] = true;
                     $this->load->library('upload', $config);
-
                     if ($this->upload->do_upload('foto')) {
                         $namafile = $this->upload->data('file_name');
                     } else {
@@ -150,20 +137,16 @@ class Auth extends CI_Controller
                 $this->session->unset_userdata($unset);
                 // $this->session->set_userdata($user_token);
                 $this->session->set_flashdata('message', '<div class="alert alert-success no-border"> <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button> Click this to verify your account :  <a href="' . base_url() . 'Auth/verify?email=' . $email . '&token=' . urlencode($token) . '">Aktifkan Akun</a> </div>');
-
                 redirect('Auth');
                 //set session jadi kosong
-
             }
         } else {;
             redirect('Auth');
         }
     }
-
     private function _aktivasiEmail($to, $token, $type)
     {
         $this->load->library('email');
-
         $config['protocol']    = 'smtp';
         $config['smtp_host']    = 'ssl://smtp.gmail.com';
         $config['smtp_port']    = '465';
@@ -173,7 +156,6 @@ class Auth extends CI_Controller
         $config['charset']    = 'utf-8';
         $config['newline']    = "\r\n";
         $config['mailtype'] = 'html'; // or html
-
         $this->email->initialize($config);
         // Set to, from, message, etc
         $this->email->from('info@ap3kni.or.id', 'noreply-AP3KNI');
@@ -185,8 +167,6 @@ class Auth extends CI_Controller
             $this->email->subject('Forgot Password');
             $this->email->message('Click this link to reset your password :  <a href="' . base_url() . 'Auth/resetPassword?email=' . $to . '&token=' . urlencode($token) . '">Reset Password</a>');
         }
-
-
         $result = $this->email->send();
         echo $this->email->print_debugger();
     }
@@ -207,10 +187,8 @@ class Auth extends CI_Controller
                         'bergabung' => date('Y-m-d'),
                         'status_keanggotaan' => 0
                     );
-
                     $this->db->insert('keanggotaan', $membership);
                     $this->session->set_flashdata('message', '<div class="alert alert-success no-border"> <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>Akun ' . $email . ' Berhasil di Aktivasi!</div>');
-
                     redirect($_SERVER['HTTP_REFERER']);
                     // redirect('Auth');
                 } else {
@@ -221,7 +199,6 @@ class Auth extends CI_Controller
                     redirect($_SERVER['HTTP_REFERER']);
                 }
             } else {
-
                 $this->session->set_flashdata('message', '<div class="alert alert-danger no-border"><button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button> Aktivasi Akun Gagal! Token Anda Salah!</div>');
                 redirect($_SERVER['HTTP_REFERER']);
             }
@@ -230,8 +207,6 @@ class Auth extends CI_Controller
             redirect($_SERVER['HTTP_REFERER']);
         }
     }
-
-
     private function _login()
     {
         $email = $this->input->post('email');
@@ -247,7 +222,6 @@ class Auth extends CI_Controller
                         'email' => $user['email_user'],
                         'nama' => $user['nama_user'],
                         'role' => $user['role_user']
-
                     ];
                     $this->session->set_userdata($data);
                     if ($user['role_user'] == 1) {
@@ -260,7 +234,6 @@ class Auth extends CI_Controller
                     redirect('Auth');
                 }
             } else {
-
                 $this->session->set_flashdata('message', '<div class="alert alert-warning no-border"><button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>Akun anda belum diaktivasi! </div>');
                 redirect('Auth');
             }
@@ -269,14 +242,12 @@ class Auth extends CI_Controller
             redirect('Auth');
         }
     }
-
     public function logout()
     {
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('nama');
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('role');
-
         $this->session->set_flashdata('message', '<div class="alert alert-success no-border"><button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button> Anda berhasil Logout! </div>');
         redirect('Auth');
     }
@@ -294,7 +265,6 @@ class Auth extends CI_Controller
     //         'min_length' => 'Password must be at least 6 characters'
     //     ]);
     //     $this->form_validation->set_rules('password2', 'Confirm Password', 'required|trim|matches[password1]');
-
     //     if ($this->form_validation->run() == false) {
     //         $data['title'] = "AP3KNI | Forgot Password";
     //         $this->load->view('templateAuth/header', $data);
@@ -305,7 +275,6 @@ class Auth extends CI_Controller
     //         $cekEmail = $this->Model_auth->getAkunAktif($email)->row_array();
     //         // $cekEmailToken = $this->Model_auth->cekEmailToken($email)->row_array();
     //         if ($cekEmail) {
-
     //             // echo 1;
     //             // $token = base64_encode(random_bytes(32));
     //             // $user_token = [
@@ -356,7 +325,6 @@ class Auth extends CI_Controller
             redirect('Auth');
         }
     }
-
     public function resetPass()
     {
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', [

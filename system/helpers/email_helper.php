@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Email Helpers
  *
@@ -46,11 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/helpers/email_helper.html
  */
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('valid_email'))
-{
+if (!function_exists('valid_email')) {
 	/**
 	 * Validate email address
 	 *
@@ -63,11 +60,8 @@ if ( ! function_exists('valid_email'))
 		return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
 	}
 }
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('send_email'))
-{
+if (!function_exists('send_email')) {
 	/**
 	 * Send an email
 	 *

@@ -1,15 +1,11 @@
 <!-- Page container -->
 <div class="page-container login-container">
-
     <!-- Page content -->
     <div class="page-content">
-
         <!-- Main content -->
         <div class="content-wrapper">
-
             <!-- Content area -->
             <div class="content">
-
                 <!-- Advanced login -->
                 <form action="<?= base_url('Auth/forgotPassword') ?>" method="POST">
                     <div class="panel panel-body login-form">
@@ -18,7 +14,6 @@
                             <div class="icon-object border-warning-400 text-warning-400"><i class="icon-lock2"></i></div>
                             <h5 class="content-group-lg">Forgot Your Password?<small class="display-block"></small></h5>
                         </div>
-
                         <div class="form-group has-feedback has-feedback-left">
                             <input type="text" class="form-control" placeholder="Email" name="email" id="email" value="<?= set_value('email') ?>">
                             <div class="form-control-feedback">
@@ -39,15 +34,11 @@
                     &copy; 2015. <a href="#" class="text-white">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" class="text-white" target="_blank">Eugene Kopyov</a>
                 </div>
                 <!-- /footer -->
-
             </div>
             <!-- /content area -->
-
         </div>
         <!-- /main content -->
-
     </div>
     <!-- /page content -->
-
 </div>
 <!-- /page container -->

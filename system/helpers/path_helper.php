@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter Path Helpers
  *
@@ -46,11 +46,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/helpers/path_helper.html
  */
-
 // ------------------------------------------------------------------------
-
-if ( ! function_exists('set_realpath'))
-{
+if (!function_exists('set_realpath')) {
 	/**
 	 * Set Realpath
 	 *
@@ -61,22 +58,16 @@ if ( ! function_exists('set_realpath'))
 	function set_realpath($path, $check_existance = FALSE)
 	{
 		// Security check to make sure the path is NOT a URL. No remote file inclusion!
-		if (preg_match('#^(http:\/\/|https:\/\/|www\.|ftp|php:\/\/)#i', $path) OR filter_var($path, FILTER_VALIDATE_IP) === $path)
-		{
+		if (preg_match('#^(http:\/\/|https:\/\/|www\.|ftp|php:\/\/)#i', $path) or filter_var($path, FILTER_VALIDATE_IP) === $path) {
 			show_error('The path you submitted must be a local server path, not a URL');
 		}
-
 		// Resolve the path
-		if (realpath($path) !== FALSE)
-		{
+		if (realpath($path) !== FALSE) {
 			$path = realpath($path);
+		} elseif ($check_existance && !is_dir($path) && !is_file($path)) {
+			show_error('Not a valid path: ' . $path);
 		}
-		elseif ($check_existance && ! is_dir($path) && ! is_file($path))
-		{
-			show_error('Not a valid path: '.$path);
-		}
-
 		// Add a trailing slash, if this is a directory
-		return is_dir($path) ? rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR : $path;
+		return is_dir($path) ? rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR : $path;
 	}
 }

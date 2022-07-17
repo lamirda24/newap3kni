@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CodeIgniter
  *
@@ -35,8 +36,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
-
+defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * PDO SQLite Forge Class
  *
@@ -44,38 +44,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/database/
  */
-class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
-
+class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge
+{
 	/**
 	 * CREATE TABLE IF statement
 	 *
 	 * @var	string
 	 */
 	protected $_create_table_if	= 'CREATE TABLE IF NOT EXISTS';
-
 	/**
 	 * DROP TABLE IF statement
 	 *
 	 * @var	string
 	 */
 	protected $_drop_table_if	= 'DROP TABLE IF EXISTS';
-
 	/**
 	 * UNSIGNED support
 	 *
 	 * @var	bool|array
 	 */
 	protected $_unsigned		= FALSE;
-
 	/**
 	 * NULL value representation in CREATE/ALTER TABLE statements
 	 *
 	 * @var	string
 	 */
 	protected $_null		= 'NULL';
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Class constructor
 	 *
@@ -85,16 +80,12 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 	public function __construct(&$db)
 	{
 		parent::__construct($db);
-
-		if (version_compare($this->db->version(), '3.3', '<'))
-		{
+		if (version_compare($this->db->version(), '3.3', '<')) {
 			$this->_create_table_if = FALSE;
 			$this->_drop_table_if   = FALSE;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Create database
 	 *
@@ -107,9 +98,7 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 		// We'll return TRUE so that an error isn't generated
 		return TRUE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Drop database
 	 *
@@ -119,31 +108,22 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 	public function drop_database($db_name)
 	{
 		// In SQLite, a database is dropped when we delete a file
-		if (file_exists($this->db->database))
-		{
+		if (file_exists($this->db->database)) {
 			// We need to close the pseudo-connection first
 			$this->db->close();
-			if ( ! @unlink($this->db->database))
-			{
+			if (!@unlink($this->db->database)) {
 				return $this->db->db_debug ? $this->db->display_error('db_unable_to_drop') : FALSE;
-			}
-			elseif ( ! empty($this->db->data_cache['db_names']))
-			{
+			} elseif (!empty($this->db->data_cache['db_names'])) {
 				$key = array_search(strtolower($this->db->database), array_map('strtolower', $this->db->data_cache['db_names']), TRUE);
-				if ($key !== FALSE)
-				{
+				if ($key !== FALSE) {
 					unset($this->db->data_cache['db_names'][$key]);
 				}
 			}
-
 			return TRUE;
 		}
-
 		return $this->db->db_debug ? $this->db->display_error('db_unable_to_drop') : FALSE;
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * ALTER TABLE
 	 *
@@ -154,8 +134,7 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 	 */
 	protected function _alter_table($alter_type, $table, $field)
 	{
-		if ($alter_type === 'DROP' OR $alter_type === 'CHANGE')
-		{
+		if ($alter_type === 'DROP' or $alter_type === 'CHANGE') {
 			// drop_column():
 			//	BEGIN TRANSACTION;
 			//	CREATE TEMPORARY TABLE t1_backup(a,b);
@@ -165,15 +144,11 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 			//	INSERT INTO t1 SELECT a,b FROM t1_backup;
 			//	DROP TABLE t1_backup;
 			//	COMMIT;
-
 			return FALSE;
 		}
-
 		return parent::_alter_table($alter_type, $table, $field);
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Process column
 	 *
@@ -183,15 +158,13 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 	protected function _process_column($field)
 	{
 		return $this->db->escape_identifiers($field['name'])
-			.' '.$field['type']
-			.$field['auto_increment']
-			.$field['null']
-			.$field['unique']
-			.$field['default'];
+			. ' ' . $field['type']
+			. $field['auto_increment']
+			. $field['null']
+			. $field['unique']
+			. $field['default'];
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field attribute TYPE
 	 *
@@ -202,18 +175,16 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 	 */
 	protected function _attr_type(&$attributes)
 	{
-		switch (strtoupper($attributes['TYPE']))
-		{
+		switch (strtoupper($attributes['TYPE'])) {
 			case 'ENUM':
 			case 'SET':
 				$attributes['TYPE'] = 'TEXT';
 				return;
-			default: return;
+			default:
+				return;
 		}
 	}
-
 	// --------------------------------------------------------------------
-
 	/**
 	 * Field attribute AUTO_INCREMENT
 	 *
@@ -223,16 +194,13 @@ class CI_DB_pdo_sqlite_forge extends CI_DB_pdo_forge {
 	 */
 	protected function _attr_auto_increment(&$attributes, &$field)
 	{
-		if ( ! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === TRUE && stripos($field['type'], 'int') !== FALSE)
-		{
+		if (!empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === TRUE && stripos($field['type'], 'int') !== FALSE) {
 			$field['type'] = 'INTEGER PRIMARY KEY';
 			$field['default'] = '';
 			$field['null'] = '';
 			$field['unique'] = '';
 			$field['auto_increment'] = ' AUTOINCREMENT';
-
 			$this->primary_keys = array();
 		}
 	}
-
 }
